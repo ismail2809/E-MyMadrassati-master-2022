@@ -1,4 +1,4 @@
- <div class="sidebar" data-color="azure" data-background-color="black" data-image="{{ asset('back/assets/img/sidebar-3.jpg') }}">
+ <div class="sidebar" data-color="azure" data-background-color="black" >
   
       <div class="logo"><a href="{{ url('/') }}" class="simple-text logo-mini">
           CT
@@ -74,25 +74,6 @@
         </li> 
 
         <li class="nav-item ">
-          <a class="nav-link" data-toggle="collapse" href="#a1">
-            <i class="material-icons">calendar_today</i>
-            <p> Emploi
-              <b class="caret"></b>
-            </p>
-          </a>
-          <div class="collapse" id="a1">
-            <ul class="nav"> 
-              <li class="nav-item ">
-                <a class="nav-link" href="{{ url('/events') }}">
-                  <span class="sidebar-mini"> N </span>
-                  <span class="sidebar-normal"> Nouvelle </span>
-                </a>
-              </li>  
-            </ul>
-          </div>
-        </li>
-
-        <li class="nav-item ">
           <a class="nav-link" data-toggle="collapse" href="#a15">
             <i class="material-icons">create_new_folder</i>
             <p> Inscriptions
@@ -113,6 +94,25 @@
                   <span class="sidebar-normal"> Liste </span>
                 </a>
               </li> 
+            </ul>
+          </div>
+        </li>
+
+        <li class="nav-item ">
+          <a class="nav-link" data-toggle="collapse" href="#a1">
+            <i class="material-icons">calendar_today</i>
+            <p> Emploi
+              <b class="caret"></b>
+            </p>
+          </a>
+          <div class="collapse" id="a1">
+            <ul class="nav"> 
+              <li class="nav-item ">
+                <a class="nav-link" href="{{ url('/events') }}">
+                  <span class="sidebar-mini"> N </span>
+                  <span class="sidebar-normal"> Nouvelle </span>
+                </a>
+              </li>  
             </ul>
           </div>
         </li>

@@ -221,11 +221,11 @@ Route::get('/cour/{id}','CourController@destroy');
 
 //inscriptions
 Route::get('/renouvelement/new', 'RenouvelementController@create'); 
-Route::get('/inscriptions', 'RenouvelementController@index');
-Route::post('/inscription', 'RenouvelementController@store');
-Route::get('/inscription/{id}/renouvelement','RenouvelementController@renouvelement');
-Route::put('/inscription/{id}','RenouvelementController@update');
-Route::delete('/inscription/{id}','RenouvelementController@destroy');
-Route::get('/inscription/{id}','RenouvelementController@show');
+Route::get('/renouvelements', 'RenouvelementController@index');
+Route::post('/renouvelement', 'RenouvelementController@store');
+Route::get('/renouvelement/{id}/renouvelement','RenouvelementController@renouvelement');
+Route::put('/renouvelement/{id}','RenouvelementController@update');
+Route::delete('/renouvelement/{id}','RenouvelementController@destroy');
+Route::get('/renouvelement/{id}','RenouvelementController@show');
 
 });

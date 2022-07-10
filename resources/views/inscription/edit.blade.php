@@ -1,381 +1,294 @@
-@extends('back.master')
-@section('title','Editer Inscription')
+@extends('backend.master')
 
+@section('title','Modifier inscription')
 @section('content') 
- 
-<div class="mr-auto ml-auto">
-    <!--      Wizard container        -->
-    <div class="wizard-container">
-      <div class="card card-wizard" data-color="orange" id="wizardProfile">
-        <form method="post" action="{{url('/inscription/'.$inscription->id)}}"  >
-          {{ csrf_field() }} 
-          <!--        You can switch " data-color="primary" "  with one of the next bright colors: "green", "orange", "red", "blue"       --> 
- 
-            <input type="hidden" name="_method" value="PUT">
-                    
-            <div class="card-header text-center">
-              <h3 class="card-title">Modification du compte</h3>
-            </div>
+  
+<h4 class="h4 mb-3">
+<a href="{{url('/inscriptions/')}}" title="Retour">
+  <i class="align-middle me-2" data-feather="arrow-left-circle"></i>  
+</a> 
+     <strong>Modifier Inscription </strong>
+</h4>        
 
-            <div class="wizard-navigation">
-              <ul class="nav nav-pills">
-                <li class="nav-item">
-                  <a class="nav-link active" href="#about" data-toggle="tab" role="tab">
-                    Info Etudiant
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#account" data-toggle="tab" role="tab">
-                    Détail
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#address" data-toggle="tab" role="tab">
-                    Scolarité
-                  </a>
-                </li>
-              </ul>
-            </div>
+<form method="post" action="{{url('/inscription/'.$inscription->id)}}"  >
+{{ csrf_field() }}  
+<input type="hidden" name="_method" value="PUT">
 
-            <div class="card-body">
-
-              <div class="tab-content">
-              
-                <div class="tab-pane active" id="about">
-                  <h5 class="info-text"> Les informations de base</h5>
-                 
-                  <div class="row justify-content-center">
-                    <div class="col-sm-6">
-                      <div class="picture-container">
-                        <div class="picture">
-                          <img src="{{ asset('back/assets/img/default-avatar.png') }}"  class="picture-src" id="wizardPicturePreview"  />
-                          <input type="file" id="wizard-picture" name="avatar">
-                        </div>
-                        <h6 class="description">Choisir Photo</h6>
-                      </div>
-                    </div>
-                    <div class="col-sm-6">
-                      <div class="input-group form-control-lg">
-                        <div class="input-group-prepend">
-                          <span class="input-group-text">
-                            <i class="material-icons">face</i>
-                          </span>
-                        </div>
-                        <div class="form-group">
-                          <label for="exampleInput1" class="bmd-label-floating">Prénom</label>
-                          <input type="text" class="form-control" id="exampleInput1" name="prenom" value="{{ $inscription->etudiants->users->prenom }}">
-                        </div>
-                      </div>
-                      <div class="input-group form-control-lg">
-                        <div class="input-group-prepend">
-                          <span class="input-group-text">
-                            <i class="material-icons">face</i>
-                          </span>
-                        </div>
-                        <div class="form-group">
-                          <label for="exampleInput2" class="bmd-label-floating">Nom</label>
-                          <input type="text" class="form-control" id="exampleInput2" name="nom" value="{{ $inscription->etudiants->users->nom }}">
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-sm-6">
-                      <div class="input-group form-control-lg">
-                        <div class="input-group-prepend">
-                          <span class="input-group-text">
-                            <i class="material-icons">filter_9_plus</i>
-                          </span>
-                        </div>
-                        <div class="form-group">
-                          <label for="exampleInput3" class="bmd-label-floating">Numéro d'inscription</label>
-                          <input type="text" class="form-control" id="exampleInput3" name="num_inscription" value="{{ $inscription->num_inscription}}">
-                        </div>
-                      </div>
-                      <div class="input-group form-control-lg">
-                        <div class="input-group-prepend">
-                          <span class="input-group-text">
-                            <i class="material-icons">phone</i>
-                          </span>
-                        </div>
-                        <div class="form-group">
-                          <label for="exampleInput4" class="bmd-label-floating">Tél</label>
-                          <input type="text" class="form-control" id="exampleInput4" name="tel" value="{{ $inscription->etudiants->users->tel }}">
-                        </div>
-                      </div>
-                      <div class="input-group form-control-lg">
-                        <div class="input-group-prepend">
-                          <span class="input-group-text">
-                            <i class="material-icons">date_range</i>
-                          </span>
-                        </div>
-                        <div class="form-group">
-                           <input type="date" class="form-control datepicker" id="exampleemalil" name="ddn" value="{{  date('Y-m-d', strtotime($inscription->etudiants->users->ddn )) }}">
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-sm-6">
-                      <div class="input-group form-control-lg">
-                        <div class="input-group-prepend">
-                          <span class="input-group-text">
-                            <i class="material-icons">email</i>
-                          </span>
-                        </div>
-                        <div class="form-group">
-                          <label for="exampleInput5" class="bmd-label-floating">Email</label>
-                          <input type="email" class="form-control" id="exampleInput5" name="email" readonly="true" value="{{ $inscription->etudiants->users->email }}" >
-                        </div>
-                      </div>
-                      <div class="input-group form-control-lg">
-                        <div class="input-group-prepend">
-                          <span class="input-group-text">
-                            <i class="material-icons">person</i>
-                          </span>
-                        </div> 
-                        <div class="form-group select-wizard"> 
-                          <select class="selectpicker" name="sexe" data-style="select-with-transition" title="Sexe"> 
-                            @if($inscription->etudiants->users->sexe == 'Homme')
-                              <option value="{{$inscription->etudiants->users->sexe}}" selected> Homme </option> 
-                              <option value="Femme" > Femme </option>
-                               @else
-                              <option value="Homme" > Homme </option> 
-                              <option value="{{$inscription->etudiants->users->sexe}}" selected> Femme </option> 
-                            @endif
-                          </select> 
-                        </div>
-                      </div>
-                      <div class="input-group form-control-lg">
-                        <div class="input-group-prepend">
-                          <span class="input-group-text">
-                            <i class="material-icons">location_city</i>
-                          </span>
-                        </div>
-                        <div class="form-group">
-                          <label for="exampleInput6" class="bmd-label-floating">Lieu naissance</label>
-                          <input type="text" class="form-control" id="exampleInput6" name="lieu_naissance" value="{{ $inscription->etudiants->users->lieu_naissance}}">
-                        </div>
-                      </div>                    
-                    </div>
-
-                    <div class="col-sm"> 
-                        <div class="form-group">
-                          <label class="bmd-label-floating"> Exemple 3 rue XXX , maarif Casablanca.</label>
-                          <textarea class="form-control" rows="5" name="adresse">{{ $inscription->etudiants->users->adresse}}</textarea>
-                        </div>
-                    </div>
-                  </div>
+<div class="row">
+    <div class="col-12 col-lg-6">
+      <div class="card">
+        <div class="card-header" style="background-color:#207CF3;">
+          <h5 class="card-title mb-0" style="color: white;">Les informations de base</h5>
+        </div>
+        <div class="card-body"> 
+            <div class="row">
+                <div class="col-sm-4">
+                  <p class="text-muted">Numéro inscription:</p>
                 </div>
 
-                <div class="tab-pane" id="account">
-                  <h5 class="info-text"> Les informations du Tutteur </h5>
-                  <div class="row justify-content-center"> 
-                    <div class="col-md-6">
-                      <div class="input-group form-control-lg">
-                        <div class="input-group-prepend">
-                          <span class="input-group-text">
-                            <i class="material-icons">face</i>
-                          </span>
-                        </div>
-                        <div class="form-group">
-                          <label for="exampleInput3" class="bmd-label-floating">Nom Père ( Tuteur )</label>
-                          <input type="text" class="form-control" id="exampleInput3" name="nom_tuteur" value="{{$inscription->etudiants->nom_tuteur}}">
-                        </div>
-                      </div>
-                      <div class="input-group form-control-lg">
-                        <div class="input-group-prepend">
-                          <span class="input-group-text">
-                            <i class="material-icons">phone</i>
-                          </span>
-                        </div>
-                        <div class="form-group">
-                          <label for="exampleInput4" class="bmd-label-floating">Tél</label>
-                          <input type="number" class="form-control" id="exampleInput4" name="tel_tuteur" value="{{$inscription->etudiants->tel_tuteur}}">
-                        </div>
-                      </div>
-                      <div class="input-group form-control-lg">
-                        <div class="input-group-prepend">
-                          <span class="input-group-text">
-                            <i class="material-icons">person</i>
-                          </span>
-                        </div> 
-                        <div class="form-group select-wizard"> 
-                          <select class="selectpicker" data-style="select-with-transition" name="sexe_tuteur" title="Sexe"> 
-                             @if($etudiant->sexe_tuteur == 'Homme')
-                              <option value="{{$etudiant->sexe_tuteur}}" selected> Homme </option> 
-                              <option value="Femme" > Femme </option>
-                               @else
-                              <option value="Homme" > Homme </option> 
-                              <option value="{{$etudiant->sexe_tuteur}}" selected> Femme </option> 
-                            @endif
-                          </select> 
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="col-md-6">
-                      <div class="input-group form-control-lg">
-                        <div class="input-group-prepend">
-                          <span class="input-group-text">
-                            <i class="material-icons">face</i>
-                          </span>
-                        </div>
-                        <div class="form-group">
-                          <label for="exampleInput5" class="bmd-label-floating">Prénom</label>
-                          <input type="text" class="form-control" id="exampleInput5" name="prenom_tuteur" value="{{$inscription->etudiants->prenom_tuteur}}">
-                        </div>
-                      </div>
-                      <div class="input-group form-control-lg">
-                        <div class="input-group-prepend">
-                          <span class="input-group-text">
-                            <i class="material-icons">email</i>
-                          </span>
-                        </div>
-                        <div class="form-group">
-                          <label for="exampleInput5" class="bmd-label-floating">Email</label>
-                          <input type="email" class="form-control" id="exampleInput5" name="email_tuteur" value="{{$inscription->etudiants->email_tuteur}}">
-                        </div>
-                      </div>
-
-                      <div class="input-group form-control-lg">
-                        <div class="input-group-prepend">
-                          <span class="input-group-text">
-                            <i class="material-icons">location_city</i>
-                          </span>
-                        </div>
-                        <div class="form-group">
-                          <label for="exampleInput6" class="bmd-label-floating">Profession</label>
-                          <input type="text" class="form-control" id="exampleInput6" name="profession_tuteur"  value="{{$inscription->etudiants->profession_tuteur}}">
-                        </div>
-                      </div>
-                    </div>                          
-                  </div>
+                <div class="col-sm-8">
+                   <input type="text" class="form-control mb-3"  value="{{ $inscription->num_inscription }}" name="num_inscription" autocomplete="off" required>
                 </div>
 
-                <div class="tab-pane" id="address">
-                  <div class="row justify-content-center">
-                    <div class="col-sm-12">
-                      <h5 class="info-text"> Scolarité</h5>
-                    </div>
+                <div class="col-sm-4">
+                  <p class="text-muted">Prénom : </p>
+                </div>
 
-                    <div class="col-sm-6">
-                      <div class="form-group select-wizard">
-                        <label>Année Scholaire</label>
-                        <select class="selectpicker" data-size="7" data-style="select-with-transition" name="année_id" title="Single Select"> 
-                          @foreach($années as $année)
+                <div class="col-sm-8">
+                       <input type="text" class="form-control mb-3"  value="{{ $inscription->etudiants->users->prenom }}" name="prenom" autocomplete="off" required>
+                </div>
+
+                <div class="col-sm-4">
+                  <p class="text-muted">Nom : </p>
+                </div>
+
+                <div class="col-sm-8">
+                       <input type="text" class="form-control mb-3"  value="{{ $inscription->etudiants->users->nom }}" name="nom" autocomplete="off" required>
+                </div>
+
+                <div class="col-sm-4">
+                  <p class="text-muted">Email : </p>
+                </div>
+
+                <div class="col-sm-8">
+                     <input type="email" class="form-control mb-3"  value="{{ $inscription->etudiants->users->email }}" name="email" autocomplete="off" readonly="true">
+                </div>
+
+                <div class="col-sm-4">
+                  <p class="text-muted">Date de naissance : </p>
+                </div>
+
+                <div class="col-sm-8">
+                     <input type="date" class="form-control mb-3"  value="{{ $inscription->etudiants->users->ddn }}" name="ddn">
+                </div>
+
+                <div class="col-sm-4">
+                  <p class="text-muted">Lieu de naissance : </p>
+                </div>
+
+                <div class="col-sm-8">
+                      <input type="text" class="form-control mb-3"  value="{{ $inscription->etudiants->users->lieu_naissance }}" name="lieu_naissance">
+                </div>              
+
+                <div class="col-sm-4">
+                  <p class="text-muted">Téléphone : </p>
+                </div>
+
+                <div class="col-sm-8">
+                     <input type="number" class="form-control mb-3"  value="{{ $inscription->etudiants->users->tel }}" name="tel">
+                </div>
+
+
+                <div class="col-sm-4">
+                  <p class="text-muted">Sexe : </p>
+                </div>
+
+                <div class="col-sm-8">
+                   <select class="form-select mb-3" name="sexe">
+                    @if($inscription->etudiants->users->sexe == 'Homme')
+                      <option value="{{$inscription->etudiants->users->sexe}}" selected> Homme </option> 
+                      <option value="Femme" > Femme </option>
+                       @else
+                      <option value="Homme" > Homme </option> 
+                      <option value="{{$inscription->etudiants->users->sexe}}" selected> Femme </option> 
+                    @endif
+                  </select>
+                </div>
+
+                <div class="col-sm-4">
+                  <p class="text-muted">Adresse : </p>
+                </div>
+
+                <div class="col-sm-8">
+                      <textarea class="form-control mb-3" rows="7" name="adresse">{{ $inscription->etudiants->users->adresse }}</textarea>
+                </div> 
+            </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-lg-6">
+      <div class="card">
+        <div class="card-header" style="background-color:orange;">
+          <h5 class="card-title mb-0" style="color: white;">Les informations de scolarité</h5>
+        </div>
+        <div class="card-body">
+          <div class="row">
+                <div class="col-sm-4">
+                  <p class="text-muted">Année scolaire : </p>
+                </div>
+
+                <div class="col-sm-8">
+                     <select class="form-select mb-3" name="année_id" title="Année Scholaire" required>  
+                     @foreach($années as $année)
                             @if($inscription->annee_id == $année->id)
                                   <option value="{{ $année->id }}" selected >{{ $année->titre }}</option>
                               @else
                                   <option value="{{ $année->id }}" >{{ $année->titre }}</option>
                             @endif
-                          @endforeach
-                        </select>
-                      </div>
-                    </div>
+                       @endforeach
+                      </select>
+                </div>
 
-                    <div class="col-sm-6">
-                      <div class="form-group select-wizard">
-                        <label>Catégorie</label>
-                        <select class="selectpicker" data-size="7" data-style="select-with-transition" name="categorie_id" title="Catégories"> 
-                          @foreach($catégories as $catégorie)
-                            @if($inscription->categorie_id == $catégorie->id)
-                                  <option value="{{ $catégorie->id }}" selected >{{ $catégorie->titre }}</option>
-                              @else
-                                  <option value="{{ $catégorie->id }}" >{{ $catégorie->titre }}</option>
-                            @endif
-                           @endforeach
-                        </select>
-                      </div>
-                    </div>
- 
+                <div class="col-sm-4">
+                  <p class="text-muted">Classe : </p>
+                </div>
 
-                    <div class="col-sm-6">
-                      <div class="form-group select-wizard">
-                        <label>Classe</label>
-                        <select class="selectpicker" data-size="7" data-style="select-with-transition" name="classe_id" title="Classe"> 
-                          @foreach($classes as $classe)
-                            @if($inscription->classe_id == $classe->id)
-                                <option value="{{ $classe->id }}" selected >{{ $classe->titre }}</option>
-                            @else
-                                <option value="{{ $classe->id }}" >{{ $classe->titre }}</option>
-                            @endif
-                           @endforeach 
-                        </select>
-                      </div>
-                    </div>
+                <div class="col-sm-8">
+                     <select class="form-select mb-3" name="classe_id" title="Classe" required>  
+                      @foreach($classes as $classe)
+                        @if($inscription->classe_id == $classe->id)
+                            <option value="{{ $classe->id }}" selected >{{ $classe->titre }}</option>
+                        @else
+                            <option value="{{ $classe->id }}" >{{ $classe->titre }}</option>
+                        @endif
+                       @endforeach 
+                     </select>
+                </div>
+                  
+            </div>
 
-                    <div class="col-sm-12">
-                      <h5 class="info-text"> Payment </h5>
-                    </div>
+        </div>
+      </div>
+            
+      <div class="card">   
 
-                    <div class="col-sm-6">
-                      <div class="form-group select-wizard">
-                        <label>Modalité</label>
-                        <select class="selectpicker" data-style="select-with-transition" name="modalité" title="Modalité"> 
- 
-                              <option value="Mensuel" {{ ( $inscription->modalité == 'Mensuel') ? 'selected' : '' }}> Mensuel </option>
-                              <option value="Trimestriel" {{ ( $inscription->modalité == 'Trimestriel') ? 'selected' : '' }}> Trimestriel </option> 
-                              <option value="Annuel" {{ ( $inscription->modalité == 'Annuel') ? 'selected' : '' }}> Annuel </option>
-                         </select>
-                      </div>
-                    </div>
+        <div class="card-header" style="background-color:#1cbb8c;">
+          <h5 class="card-title mb-0" style="color: white;">Les informations du Payment</h5>
+        </div>
 
-                    <div class="col-sm-6">
-                      <div class="form-group select-wizard">
-                        <label>Transport</label>
-                        <select class="selectpicker" data-style="select-with-transition" name="transport" title="Single Select"> 
-                          @if($inscription->transport == 'Oui')
+        <div class="card-body">
+            <div class="row">
+                 
+                <div class="col-sm-4">
+                  <p class="text-muted">Modalité : </p>
+                </div>
+
+                <div class="col-sm-8">
+                      <select class="form-select mb-3" name="modalité" title="Modalité" required>  
+                        <option value="Mensuel" {{ ( $inscription->modalité == 'Mensuel') ? 'selected' : '' }}> Mensuel </option>
+                        <option value="Trimestriel" {{ ( $inscription->modalité == 'Trimestriel') ? 'selected' : '' }}> Trimestriel </option> 
+                        <option value="Annuel" {{ ( $inscription->modalité == 'Annuel') ? 'selected' : '' }}> Annuel </option>
+                      </select> 
+                </div>
+
+                <div class="col-sm-4">
+                  <p class="text-muted">Tarif : </p>
+                </div>
+
+                <div class="col-sm-8">
+                    <input type="number" class="form-control mb-3" value="{{ $inscription->tarif }}" name="tarif" required>
+                </div>
+
+                <div class="col-sm-4">
+                  <p class="text-muted">Transport : </p>
+                </div>
+
+                <div class="col-sm-8">
+                   <select class="form-select mb-3" name="transport" title="Transport">
+                       @if($inscription->transport == 'Oui')
                               <option value="{{$inscription->transport}}" selected> {{$inscription->transport}} </option> 
                               <option value="Non"> Non </option> 
                               @else
-                              <option value="{{$inscription->transport}}" selected> {{$inscription->transport}} </option>                         
+                              <option value="{{$inscription->transport}}" selected> {{$inscription->transport}} </option>              
                               <option value="Oui"> Oui </option> 
-                          @endif 
-                        </select>
-                      </div>
-                    </div>
-
-                    <div class="col-sm-6">
-                      <div class="input-group form-control">  
-                          <label for="exampleInput22" class="bmd-label-floating">Tarif</label>
-                          <input type="number" class="form-control" id="exampleInput22" name="tarif" value="{{ $inscription->tarif}}"> 
-                      </div>
-                    </div>
-
-                    <div class="col-sm-6">
-                      <div class="form-group select-wizard">
-                        <label>Cantine</label>
-                        <select class="selectpicker" data-style="select-with-transition" name="cantine" title="Select"> 
-                          @if($inscription->cantine == 'Oui')
-                              <option value="{{$inscription->cantine}}" selected> {{$inscription->cantine}} </option> 
-                              <option value="Non"> Non </option> 
-                              @else
-                              <option value="{{$inscription->cantine}}" selected> {{$inscription->cantine}} </option>                         
-                              <option value="Oui"> Oui </option> 
-                          @endif
-                        </select>
-                      </div>
-                    </div>
-                    
-                  </div>
+                          @endif                        
+                    </select>
                 </div>
 
-              </div>
+                <div class="col-sm-4">
+                  <p class="text-muted">Cantine : </p>
+                </div>
 
-            </div>
-            
-            <div class="card-footer">
-              <div class="mr-auto">
-                <input type="button" class="btn btn-previous btn-fill btn-default btn-wd disabled" name="previous" value="Previous">
-              </div>
-              <div class="ml-auto">
-                <input type="button" class="btn btn-next btn-fill btn-success btn-wd" name="next" value="Next">
-                <button type="submit" class="btn btn-finish btn-fill btn-success btn-wd" name="finish" style="display: none;" onclick="md.showNotification('bottom','right')">Modifier</button>
-              </div>
-              <div class="clearfix"></div>
-            </div>
+                <div class="col-sm-8">
+                  <select class="form-select mb-3" name="cantine" title="Cantine">
+                     @if($inscription->cantine == 'Oui')
+                          <option value="{{$inscription->cantine}}" selected> {{$inscription->cantine}} </option> 
+                          <option value="Non"> Non </option> 
+                          @else
+                          <option value="{{$inscription->cantine}}" selected> {{$inscription->cantine}} </option>                         
+                          <option value="Oui"> Oui </option> 
+                      @endif                         
+                  </select>
+                </div>
+          </div>                  
+        </div>
+        </div>
+      </div> 
+</div>
 
-        </form>
+<div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header" style="background-color:lightslategrey;">
+          <h5 class="card-title mb-0" style="color: white;">Les informations du Tuteur</h5>
+        </div>
+        <div class="card-body">  
+            <div class="row">
+                <div class="col-sm-4">
+                  <p class="text-muted">Prénom : </p>
+                </div>
+
+                <div class="col-sm-8">
+                    <input type="text" class="form-control mb-3" name="prenom_tuteur" value="{{ $inscription->etudiants->prenom_tuteur }}" >
+                </div>
+
+                <div class="col-sm-4">
+                  <p class="text-muted">Nom : </p>
+                </div>
+
+                <div class="col-sm-8">
+                    <input type="text" class="form-control mb-3" name="nom_tuteur" value="{{ $inscription->etudiants->nom_tuteur }}" >
+                </div>
+
+                <div class="col-sm-4">
+                  <p class="text-muted">Téléphone : </p>
+                </div>
+
+                <div class="col-sm-8">
+                    <input type="number" class="form-control mb-3" name="tel_tuteur" value="{{ $inscription->etudiants->tel_tuteur }}" >
+                </div>
+                
+                <div class="col-sm-4">
+                  <p class="text-muted">Email : </p>
+                </div>
+
+                <div class="col-sm-8">
+                    <input type="email" class="form-control mb-3" name="email_tuteur" value="{{ $inscription->etudiants->email_tuteur }}" >
+                </div>
+                
+                <div class="col-sm-4">
+                  <p class="text-muted">Sexe : </p>
+                </div>
+
+                <div class="col-sm-8">
+                  <select class="form-select mb-2" name="sexe_tuteur" title="Sexe">
+                      @if($inscription->etudiants->sexe_tuteur == 'Homme')
+                        <option value="{{$inscription->etudiants->sexe_tuteur}}" selected> Homme </option> 
+                        <option value="Femme" > Femme </option>
+                         @else
+                        <option value="Homme" > Homme </option> 
+                        <option value="{{$inscription->etudiants->sexe_tuteur}}" selected> Femme </option> 
+                      @endif 
+                  </select>
+                </div>
+                
+                <div class="col-sm-4">
+                  <p class="text-muted">Profession : </p>
+                </div>
+
+                <div class="col-sm-8">
+                   <input type="text" class="form-control mb-3" name="profession_tuteur" value="{{ $inscription->etudiants->profession_tuteur }}" >
+                </div>                 
+            </div> 
+            <div class="row">
+              <div class="col-sm-2">
+                  <input type="submit" class="btn btn-warning" value="Modifier">                
+              </div>
+            </div>
+        </div>
       </div>
-    </div>
-    <!-- wizard container -->
+    </div> 
 </div> 
-  
-@endsection
+</form>
+
+@endsection        

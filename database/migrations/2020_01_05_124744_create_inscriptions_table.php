@@ -22,10 +22,10 @@ class CreateInscriptionsTable extends Migration
             $table->foreign('classe_id')->references('id')->on('classes')->onDelete('cascade');
             $table->unsignedBigInteger('annee_id');
             $table->foreign('annee_id')->references('id')->on('années')->onDelete('cascade');
-            $table->unsignedBigInteger('categorie_id');
-            $table->foreign('categorie_id')->references('id')->on('categories')->onDelete('cascade');                  
+            /*$table->unsignedBigInteger('categorie_id');
+            $table->foreign('categorie_id')->references('id')->on('categories')->onDelete('cascade');         
             $table->unsignedBigInteger('niveau_id');
-            $table->foreign('niveau_id')->references('id')->on('niveaus')->onDelete('cascade');
+            $table->foreign('niveau_id')->references('id')->on('niveaus')->onDelete('cascade');*/
             $table->string('tarif');
             $table->string('modalité')->nullable();
             $table->string('description')->nullable();

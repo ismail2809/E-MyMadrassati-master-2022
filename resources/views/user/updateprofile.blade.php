@@ -39,7 +39,7 @@
 		          <div class="col-lg-6">
 		            <div class="form-group">
 		              <label class="bmd-label-floating">Email</label>
-		              <input type="email" class="form-control" name="email" value="{{ $data['users']['email'] }}">
+		              <input type="email" class="form-control" name="email" value="{{ $data['users']['email'] }}"readonly>
 		            </div>
 		          </div>
 		          <div class="col-lg-6">

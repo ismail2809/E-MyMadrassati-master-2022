@@ -147,7 +147,7 @@
                         <label class="col-sm-2 col-form-label">Email </label>
                         <div class="col-sm-10">
                           <div class="form-group">
-                            <input type="text" class="form-control" name="email" value="{{ $user['users']['email'] }}">
+                            <input type="text" class="form-control" name="email" readonly value="{{ $user['users']['email'] }}">
                           </div>
                         </div>
                       </div> 

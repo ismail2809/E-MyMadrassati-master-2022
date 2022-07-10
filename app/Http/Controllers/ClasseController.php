@@ -21,6 +21,7 @@ class ClasseController extends Controller
     public function index()
     {
         $classes = Classe::with('categories','niveaus')->get();
+        //dd($classes);
          return view('classe.index',compact('classes'));
     }
 
@@ -47,11 +48,13 @@ class ClasseController extends Controller
     public function edit($id){
 
         $classe = Classe::find($id);
-        return view('classe.edit',['classe'=>$classe]);
+        $categories = Categorie::all();
+        $niveaux = Niveau::all();
+
+        return view('classe.edit',['classe'=>$classe,'categories'=>$categories,'niveaux'=>$niveaux]);
     }
     
     public function update($id,Request $request){
-        
         $classe        = Classe::find($id);
         $classe->titre = $request->titre; 
         $classe->description = $request->description;         

@@ -6,10 +6,12 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
 use App\Agent;
+use App\Admin;
 use Spatie\Permission\Models\Role;
 use DB;
 use Hash;
 use Illuminate\Support\Arr;
+use Auth;
     
 class UserController extends Controller
 {
@@ -116,7 +118,7 @@ class UserController extends Controller
     {   
         $id   = Auth::user()['id'];        
         $user = User::where('id',$id)->first();
-
+        //dd($user);
         if (isset($user) && $user->role == 'etudiant') {
             $data = json_decode(Etudiant::where('user_id',$user->id)->with('users')->first(),true);
         }

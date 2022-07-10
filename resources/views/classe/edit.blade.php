@@ -1,59 +1,90 @@
-@extends('back.master') 
+@extends('backend.master') 
 @section('title','Modifier Classe')
 
 @section('content') 
 
+  
+<h4 class="h4 mb-3">
+<a href="{{url('/classes')}}" title="Retour">
+  <i class="align-middle me-2" data-feather="arrow-left-circle"></i>  
+</a> 
+     <strong> Retour</strong>
+</h4>        
+
+<form method="post" action="{{url('/classe/'.$classe->id)}}" class="form-horizontal">         
+{{ csrf_field() }}  
+<input type="hidden" name="_method" value="PUT">
+
 <div class="row">
-	<div class="col-md-12">
-	  <div class="card">
-	    <div class="card-header card-header-warning card-header-icon">
-	      <div class="card-icon">
-	        <i class="material-icons">assignment</i>
-	      </div>
-	      <h4 class="card-title">Modifier Classe</h4>
-	    </div>
-	    <div class="card-body">
-		  <div class="col-md-12">
-		    <form method="post" action="{{url('/classe/'.$classe->id)}}" class="form-horizontal">         
-		    {{ csrf_field() }}  
-            <input type="hidden" name="_method" value="PUT">
-
-		    <div class="card-body">             
-		        <div class="row">
-		          <label class="col-sm-2 col-form-label">Titre</label>
-		          <div class="col-sm-10">
-		            <div class="form-group">
-		              <input type="text" class="form-control" name="titre" value="{{ $classe->titre}}">
-		            </div>
-		          </div>
-		        </div>  
-		        <div class="row">
-		        	<div class="col-sm"> 
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Description</label>
-                          <textarea class="form-control" rows="5" name="description">{{ $classe->description }}</textarea>
-                        </div>
-                    </div>
-		        </div>
-		     </div>
-
-		     <div class="card-footer">
-		        <div class="ml-auto">
-		          <input type="submit" class="btn btn-info" value="Valider">
-		        </div>
-		        <div class="clearfix"></div>
-		    </div>
-		  </form>
-
-		 </div>
+    <div class="col-lg-12">
+      <div class="card">
+       
+        <div class="card-header" style="background-color:orange;">
+          <h5 class="card-title mb-0" style="color: white;">Modifier classe</h5>
         </div>
-      </div>
+      
+        <div class="card-body"> 
+            <div class="row"> 
 
-	    <!-- end content-->
-	  </div>
-	  <!--  end card  -->
-	</div>
-	<!-- end col-md-12 -->
-</div> 
+                <div class="col-sm-4">
+                  <p class="text-muted">Titre : </p>
+                </div>
+
+                <div class="col-sm-8">
+                       <input type="text" class="form-control mb-3" name="titre" value="{{ $classe->titre }}">
+                </div>
+
+                <div class="col-sm-4">
+                  <p class="text-muted">Catégorie : </p>
+                </div>
+
+                <div class="col-sm-8">
+                     <select class="form-select mb-3" name="categorie_id" title="Catégorie">  
+                        @foreach($categories as $catégorie)
+                          @if($classe->categorie_id == $catégorie->id)
+                                <option value="{{ $catégorie->id }}" selected >{{ $catégorie->titre }}</option>
+                            @else
+                                <option value="{{ $catégorie->id }}" >{{ $catégorie->titre }}</option>
+                          @endif
+                         @endforeach
+                     </select>
+                </div>
+
+                <div class="col-sm-4">
+                  <p class="text-muted">Niveau : </p>
+                </div>
+
+                <div class="col-sm-8">
+                     <select class="form-select mb-3" name="niveau_id" title="Niveau">   
+                      @foreach($niveaux as $niveau)
+                            @if($classe->niveau_id == $niveau->id)
+                                <option value="{{ $niveau->id }}" selected >{{ $niveau->titre }}</option>
+                            @else
+                                <option value="{{ $niveau->id }}" >{{ $niveau->titre }}</option>
+                        @endif
+                       @endforeach 
+                     </select>
+                </div> 
+
+                <div class="col-sm-4">
+                  <p class="text-muted">Description : </p>
+                </div>
+
+                <div class="col-sm-8">
+                      <textarea class="form-control mb-3" rows="7" name="description" >{{ $classe->description }}</textarea>
+                </div> 
+
+                <div class="col-sm-12">
+                      <input type="submit" class="btn btn-info" value="Valider">
+                </div>
+            </div>
+        </div>
+
+      </div>
+    </div>
+</div>
+
+</form>
  
 @endsection
+
