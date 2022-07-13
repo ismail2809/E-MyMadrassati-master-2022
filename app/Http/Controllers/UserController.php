@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
 use App\Agent;
+use App\Etudiant;
 use App\Admin;
 use Spatie\Permission\Models\Role;
 use DB;
@@ -52,8 +53,7 @@ class UserController extends Controller
     public function show($id)
     {
         $user = User::find($id);
-        //dd(User::role('Agent')->get());
-        //dd($users = User::permission('product-list')->get());
+
         return view('users.show',compact('user'));
     }
     
@@ -95,45 +95,42 @@ class UserController extends Controller
 
     public function profile()
     {   
-        $id =Auth::user()['id'];
-         //dd($id);   
-        //$user = json_decode(User::where('id',$id)->first(),true);
-         $user =array();
-        if(Auth::user()->role == "admin") {
+        $id = Auth::user()['id'];
+        $profile = json_decode(User::where('id',$id)->first(),true); 
+        
+        if($profile['role'] == "admin") {
             $user = json_decode(Admin::where('user_id',$id)->with('users')->first(),true);
         }   
-        if (Auth::user()->role == "etudiant") {
+        if ($profile['role'] == "etudiant") {
             $user = json_decode(Etudiant::where('user_id',$id)->with('users')->first(),true);
         }
-        if (Auth::user()->role == "professeur") {
+        if ($profile['role'] == "professeur") {
             $user = json_decode(Professeur::where('user_id',$id)->with('users')->first(),true);
         }
-        
-
         //dd($user);
         return view('user.profile',compact('user'));
     }
 
     public function editprofile()
     {   
-        $id   = Auth::user()['id'];        
-        $user = User::where('id',$id)->first();
-        //dd($user);
-        if (isset($user) && $user->role == 'etudiant') {
-            $data = json_decode(Etudiant::where('user_id',$user->id)->with('users')->first(),true);
+        $id = Auth::user()['id'];
+        $profile = json_decode(User::where('id',$id)->first(),true); 
+        
+        if($profile['role'] == "admin") {
+            $user = json_decode(Admin::where('user_id',$id)->with('users')->first(),true);
+        }   
+        if ($profile['role'] == "etudiant") {
+            $user = json_decode(Etudiant::where('user_id',$id)->with('users')->first(),true);
         }
-        elseif (isset($user) && $user->role == 'professeur') {
-            $data = json_decode(Professeur::where('user_id',$user->id)->with('users')->first(),true);
+        if ($profile['role'] == "professeur") {
+            $user = json_decode(Professeur::where('user_id',$id)->with('users')->first(),true);
         }  
-        elseif (isset($user) && $user->role == 'admin') {
-            $data = json_decode(Admin::where('user_id',$user->id)->with('users')->first(),true);
-        }  
-        //dd($data);
-        return view('user.updateprofile',compact('data'));
+
+        return view('user.updateprofile',compact('user'));
     }
 
     public function update_profile(Request $request){
-     
+
         $id = Auth::user()['id'];
         //dd($id);
         $user = User::find($id);

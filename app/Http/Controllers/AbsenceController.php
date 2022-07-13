@@ -18,68 +18,49 @@ class AbsenceController extends Controller
     {
         $this->middleware('auth');
     }
-    
-	public function create()
-    {         
+    public function new_absence($id)
+    {   $id_classe = $id;
+        $annee_id = Session::get('année');        
+        $allClasses= Inscription::where('annee_id',$annee_id)->where('classe_id',$id_classe)->with('classes','classes.categories','classes.niveaus','etudiants','etudiants.users','années')->get(); 
         $matieres = Matiere::all(); 
-        $années   = Année::all();
-        $classes  = Classe::all();
-
-        return view('absence.new',compact('matieres','années','classes'));
+ 
+        return view('absence.new',compact('allClasses','matieres','id'));
     }
 
-    public function form_search(Request $request)
-    {   //dd($request);
-		$année_id   = $request->année_id;
-		$classe_id  = $request->classe_id;		
-		$matiere_id = $request->matiere_id;	
+    public function store_absence(Request $request)
+    {   // dd($request); 
 
-		$data = json_decode(Inscription::where('classe_id',$classe_id)->where('annee_id',$année_id)->with('etudiants')->get(),true);
-		//dd(json_decode($data,true));
-         return view('absence.classe',compact('data','matiere_id','année_id','classe_id'));
-    }
-
-    public function store(Request $request)
-    {   //dd($request); 
-   		$etudiants 	  = $request->etudiant_id;              
-   		$absences     = $request->absence;              
+        $annee_id = Session::get('année');         
+        
+        $etudiants    = $request->etudiant_id;              
+        $absences     = $request->absence;              
         $observations = $request->observation;  
         $debutseance  = $request->debutseance;  
-   		$finseance    = $request->finseance;  
-		$matiere_id   = $request->matiere_id;	
-		$année        = $request->année_id;
-        $classe       = $request->classe_id;
-		$professeur   = $request->professeur_id;
-        
+        $finseance    = $request->finseance;  
+
         foreach($etudiants as $key => $etudiant){ 
 
-	         if(isset($absences[$key])){       
+             if(isset($debutseance[$key])){       
 
-		        $absence = new Absence(); 
-		        $absence->etudiant_id   = $etudiant;    
-		        $absence->professeur_id = $professeur[$key];    
-		        $absence->matiere_id	= $request->input('matiere_id');    
-		        $absence->annee_id 		= $année[$key];        
-		        $absence->classe_id 	= $classe[$key];
-		        $absence->absence 		= $absences[$key];  
-		        $absence->observation 	= $observations[$key];
-		        $absence->debutseance 	= $debutseance[$key]; 
-		        $absence->finseance 	= $finseance[$key]; 
-		        $absence->save(); 
-		    }
-    	}
+                $absence = new Absence();     
+                $absence->professeur_id = $request->professeur_id;    
+                $absence->matiere_id    = $request->matiere_id;    
+                $absence->annee_id      = $annee_id;        
+                $absence->classe_id     = $request->classe_id;
 
-    	return redirect('/dashboard');
-    }    
+                $absence->etudiant_id   = $etudiant;
+                $absence->absence       = $absences[$key];  
+                $absence->observation   = $observations[$key];
+                $absence->debutseance   = $debutseance[$key]; 
+                $absence->finseance     = $finseance[$key]; 
 
-    public function claase()
-    {         
-        $matieres = Matiere::all(); 
-        $années   = Année::all();
-        $classes  = Classe::all();
+                //dd($absence);
+                $absence->save(); 
+            }
+        }
 
-        return view('absence.classe',compact('matieres','années','classes'));
-    }
+        return redirect('/dashboard');
+    } 
 
     public function index()
     {          
@@ -105,7 +86,7 @@ class AbsenceController extends Controller
         return view('absence.show',['absence' => $absence , 'user' => $user ,'professeur' => $professeur]);
     }
 
-        public function edit($id){
+    public function edit($id){
 
         $absence = json_decode(Absence::where('id',$id)->with('matieres','années','classes','professeurs','etudiants')->first(),true);        
         $matieres = Matiere::all(); 
@@ -141,82 +122,5 @@ class AbsenceController extends Controller
         return redirect('/absences');        
     }
 
-    public function getAbsencesEtudiant($id){
-        $annee_id = Session::get('année');
-        $absences = json_decode(Absence::where('etudiant_id',$id)->where('annee_id',$annee_id)->with('années','professeurs.users','etudiants.users','classes.categories','matieres')->get(),true); 
-        //dd($absences);
-        return view('categorie.absenceEtudiant',compact('absences'));            
-    }
-
-     public function getAbsencesEtudiantEp(){
-        $annee_id = Session::get('année');
-        $id = auth()->user()->id;
-        $id_etudiant = Etudiant::where('user_id',$id)->with('users')->first();
-        //dd($id,$id_etudiant);
-        $absences = json_decode(Absence::where('etudiant_id',$id)->where('annee_id',$annee_id)->with('années','professeurs.users','etudiants.users','classes.categories','matieres')->get(),true); 
-        
-       // dd($absences); 
-        return view('absence.etudiantEp',compact('absences'));
-    }
-
-    public function storeAbsence(Request $request)
-    {   //dd($request); 
-        $etudiants    = $request->etudiant_id;              
-        $absences     = $request->absence;              
-        $observations = $request->observation;  
-        $debutseance  = $request->debutseance;  
-        $finseance    = $request->finseance;  
-        $matiere_id   = $request->matiere_id;   
-        $année        = $request->année_id;
-        $classe       = $request->classe_id;
-        $professeur   = $request->professeur_id;
-        
-        foreach($etudiants as $key => $etudiant){ 
-
-             if(isset($absences[$key])){       
-
-                $absence = new Absence(); 
-                $absence->etudiant_id   = $etudiant;    
-                $absence->professeur_id = $professeur[$key];    
-                $absence->matiere_id    = $matiere_id;    
-                $absence->annee_id      = $année[$key];        
-                $absence->classe_id     = $classe[$key];
-                $absence->absence       = $absences[$key];  
-                $absence->observation   = $observations[$key];
-                $absence->debutseance   = $debutseance[$key]; 
-                $absence->finseance     = $finseance[$key]; 
-                $absence->save(); 
-            }
-        }
-
-        return back()->with('success','Absence est bien ajouté !');
-    }   
-
-       public function getabsencesbyclasses(){
-        $annee_id = Session::get('année');
-
-        $absence_classes = Absence::where('annee_id',$annee_id)->groupby('matiere_id')->orderby('classe_id')->with('années','matieres','professeurs.users','classes','etudiants.users')->get();
-        //dd($absence_classes);
-        return view('absence.listeClasse',compact('absence_classes'));
-    }
-
-    public function getabsencesbyidclasse($id,$id_matiere){
-        $annee_id = Session::get('année');
-
-        $absence_classe = json_decode(Absence::where('annee_id',$annee_id)->where('matiere_id',$id_matiere)->orderby('classe_id')->with('années','matieres','professeurs.users','classes','etudiants.users')->get(),true);
-
-        $sumabsence = Absence::where('annee_id',$annee_id)->where('matiere_id',$id_matiere)->orderby('classe_id')->with('années','matieres','professeurs.users','classes','etudiants.users')->count(); 
-        
-        $sumabsenceDay = Absence::where('annee_id',$annee_id)->where('matiere_id',$id_matiere)->orderby('classe_id')->with('années','matieres','professeurs.users','classes','etudiants.users')->whereDay('created_at','=',date('d'))->count(); 
-
-        $sumabsenceMonth = Absence::where('annee_id',$annee_id)->where('matiere_id',$id_matiere)->orderby('classe_id')->with('années','matieres','professeurs.users','classes','etudiants.users')->whereMonth('created_at','=',date('m'))->count(); 
-
-        $sumAbsenceRetard = Absence::where('annee_id',$annee_id)->where('absence','=','Retard')->where('matiere_id',$id_matiere)->orderby('classe_id')->with('années','matieres','professeurs.users','classes','etudiants.users')->count();
-        
-        $sumAbsenceA = Absence::where('annee_id',$annee_id)->where('absence','=','Absence')->where('matiere_id',$id_matiere)->orderby('classe_id')->with('années','matieres','professeurs.users','classes','etudiants.users')->count(); 
-        
-        //dd($sumabsence,$sumabsenceDay,$sumabsenceMonth,$sumAbsenceRetard);
-
-        return view('absence.listeclassebyid',compact('absence_classe','sumabsence','sumabsenceDay','sumabsenceMonth','sumAbsenceRetard','sumAbsenceA'));
-    }
+  
 }

@@ -13,6 +13,7 @@ use App\Payment;
 use App\Absence;  
 use App\Note;
 use Illuminate\Support\Facades\Hash;
+use Session;
 
 class InscriptionController extends Controller
 {
@@ -160,6 +161,16 @@ class InscriptionController extends Controller
     //     dd($detail);                        
         return view('inscription.show',compact('detail'));     
     }
+
+
+    public function getAllClasses(){ 
+        $annee_id = Session::get('année');
+        $allClasses= Inscription::where('annee_id',$annee_id)->groupby('classe_id')->with('classes','classes.categories','classes.niveaus','etudiants','etudiants.users','années')->get(); 
+
+        //dd($allClasses);
+        return view('absence.allClasses',compact('allClasses'));
+    }
+
 
     public function create_renouveler($id){
         dd($id);

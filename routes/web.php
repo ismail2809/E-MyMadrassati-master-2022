@@ -33,23 +33,62 @@ Route::resource('roles','RoleController');
 Route::resource('users','UserController');
 Route::resource('products','ProductController');
 
-Route::get('/emploi', 'UserController@event');
-
 Route::get('/sessions/{id}', 'HomeController@putAnnee');
-Route::post('formcontact', 'ContactController@formcontact');
 
-Route::get('/parametre','HomeController@parametre'); 
+//année scolaire
+Route::get('/année/new', 'AnnéeController@create');
+Route::post('/annee', 'AnnéeController@store');
+Route::get('/années', 'AnnéeController@index');
+Route::get('/année/{id}/edit','AnnéeController@edit');
+Route::put('/annee/{id}','AnnéeController@update');
+Route::delete('/année/{id}','AnnéeController@destroy');
+Route::get('/categorie/new', 'CategorieController@create');
+Route::get('/categories', 'CategorieController@index');
+Route::get('/categorie/{id}/edit','CategorieController@edit');
+Route::put('/categorie/{id}','CategorieController@update');
+Route::post('/categorie','CategorieController@store');
+Route::delete('/categorie/{id}','CategorieController@destroy');
 
-Route::get('events', 'EventController@index');
-Route::post('event', 'EventController@store');
+//niveau
+Route::get('/niveau/new', 'NiveauController@create');
+Route::post('/niveau', 'NiveauController@store');
+Route::get('/niveaux', 'NiveauController@index');
+Route::get('/niveau/{id}/edit','NiveauController@edit');
+Route::put('/niveau/{id}','NiveauController@update');
+Route::delete('/niveau/{id}','NiveauController@destroy');
 
-//tableau de bord
-Route::get('/dashboard', 'DashboardController@index');
+//classe
+Route::get('/classe/new', 'ClasseController@create');
+Route::get('/classes', 'ClasseController@index');
+Route::get('/classe/{id}/edit','ClasseController@edit');
+Route::put('/classe/{id}','ClasseController@update');
+Route::delete('/classe/{id}','ClasseController@destroy');
+Route::post('/classe', 'ClasseController@store');
 
-//timeline
-Route::get('/timeline', 'BlogController@index');
-Route::post('/timeline', 'BlogController@store');
-Route::get('/timelines', 'BlogController@listeBlog');
+//matiere
+Route::get('/matiere/new', 'MatiereController@create');
+Route::get('/matieres', 'MatiereController@index');
+Route::post('/matiere', 'MatiereController@store');
+Route::get('/matiere/{id}/edit','MatiereController@edit');
+Route::put('/matiere/{id}','MatiereController@update');
+Route::delete('/matiere/{id}','MatiereController@destroy');
+
+//inscriptions 
+Route::get('/inscription/new', 'InscriptionController@create'); 
+Route::get('/inscriptions', 'InscriptionController@index');
+Route::post('/inscription', 'InscriptionController@store');
+Route::get('/inscription/{id}/edit','InscriptionController@edit');
+Route::put('/inscription/{id}','InscriptionController@update');
+Route::delete('/inscription/{id}','InscriptionController@destroy');
+Route::get('/inscription/{id}','InscriptionController@show');
+
+//contact
+Route::post('contact', 'ContactController@store');
+Route::get('/contact/new', 'ContactController@new');
+Route::get('contacts', 'ContactController@index');
+Route::get('/contact/{id}/detail', 'ContactController@show');
+Route::get('/contact/{id}/edit', 'ContactController@edit');
+Route::put('/contact/{id}', 'ContactController@update');
 
 //profile
 Route::get('/profile', 'UserController@profile');
@@ -61,10 +100,15 @@ Route::get('/admin/new', 'UserController@create_admin');
 Route::post('/store_admin', 'UserController@store_admin');
 Route::get('/admins', 'UserController@index_admins');
 
-//user
-Route::get('/user/{id}/detail', 'UserController@show')->name('users.show');
-Route::get('/user/{id}/edit', 'UserController@edit')->name('users.edit');
-Route::patch('/user/{id}/update', 'UserController@update')->name('users.update');
+//etudiants
+Route::get('/etudiants', 'EtudiantController@index');
+Route::get('/etudiant/{id}/détail', 'EtudiantController@show');
+
+//professeurs
+Route::get('/professeur/new', 'ProfesseurController@create');
+Route::post('/professeur', 'ProfesseurController@store');
+Route::get('/professeurs', 'ProfesseurController@index');
+Route::get('/professeur/{id}/détail', 'ProfesseurController@show');
 
 //agent
 Route::get('/agent/new', 'UserController@create_agent');
@@ -76,21 +120,25 @@ Route::get('/users', 'PasswordController@listeUser')->name('users.index');
 Route::get('/user/{id}/edit_password', 'PasswordController@edit_password');
 Route::post('/update_password/{id}', 'PasswordController@update_password');
 
+//user
+Route::get('/user/{id}/detail', 'UserController@show')->name('users.show');
+Route::get('/user/{id}/edit', 'UserController@edit')->name('users.edit');
+Route::patch('/user/{id}/update', 'UserController@update')->name('users.update');
+
+//absence
+Route::get('/classes/liste', 'InscriptionController@getAllClasses');
+Route::get('/classe/{id}/nouvelle_absence', 'AbsenceController@new_absence');
+Route::post('/store_absence', 'AbsenceController@store_absence');
+Route::get('/classe/{id}/nouvelle_note', 'NoteController@new_note');
+
+
+/*
 //ep 
 Route::get('/monespace/notes', 'NoteController@getNotesEtudiantEp');
 Route::get('/monespace/absences', 'AbsenceController@getAbsencesEtudiantEp');
 Route::get('/monespace/payments', 'PaymentController@getPaymentsEtudiantEp');
 Route::get('/monespace/emploi', 'EventController@index');
 
-//etudiants
-Route::get('/etudiants', 'EtudiantController@index');
-Route::get('/etudiant/{id}/détail', 'EtudiantController@show');
-
-//professeurs
-Route::get('/professeur/new', 'ProfesseurController@create');
-Route::post('/professeur', 'ProfesseurController@store');
-Route::get('/professeurs', 'ProfesseurController@index');
-Route::get('/professeur/{id}/détail', 'ProfesseurController@show');
 
 //inscriptions
 Route::get('/inscription/new', 'InscriptionController@create'); 
@@ -160,14 +208,6 @@ Route::get('/demandedocument/nouvelle', 'DemandedocumentController@create');
 Route::post('/demandedocument', 'DemandedocumentController@store');
 Route::get('/demandedocuments', 'DemandedocumentController@index');
 
-//année scolaire
-Route::get('/année/new', 'AnnéeController@create');
-Route::post('/annee', 'AnnéeController@store');
-Route::get('/années', 'AnnéeController@index');
-Route::get('/année/{id}/edit','AnnéeController@edit');
-Route::put('/annee/{id}','AnnéeController@update');
-Route::delete('/année/{id}','AnnéeController@destroy');
-
 //categorie
 Route::get('/mesCategories', 'CategorieController@mesCatégories');
 Route::get('/categorie/{id_categorie}/classes', 'CategorieController@mesClasses');
@@ -181,37 +221,6 @@ Route::post('/storeAbsence', 'AbsenceController@storeAbsence');
 Route::get('/liste-des-notes-etudiants', 'NoteController@getListNotesEtudiants');
 
 
-Route::get('/categorie/new', 'CategorieController@create');
-Route::get('/categories', 'CategorieController@index');
-Route::get('/categorie/{id}/edit','CategorieController@edit');
-Route::put('/categorie/{id}','CategorieController@update');
-Route::post('/categorie','CategorieController@store');
-Route::delete('/categorie/{id}','CategorieController@destroy');
-
-//niveau
-Route::get('/niveau/new', 'NiveauController@create');
-Route::post('/niveau', 'NiveauController@store');
-Route::get('/niveaux', 'NiveauController@index');
-Route::get('/niveau/{id}/edit','NiveauController@edit');
-Route::put('/niveau/{id}','NiveauController@update');
-Route::delete('/niveau/{id}','NiveauController@destroy');
-
-//classe
-Route::get('/classe/new', 'ClasseController@create');
-Route::get('/classes', 'ClasseController@index');
-Route::get('/classe/{id}/edit','ClasseController@edit');
-Route::put('/classe/{id}','ClasseController@update');
-Route::delete('/classe/{id}','ClasseController@destroy');
-Route::post('/classe', 'ClasseController@store');
-
-//matiere
-Route::get('/matiere/new', 'MatiereController@create');
-Route::get('/matieres', 'MatiereController@index');
-Route::post('/matiere', 'MatiereController@store');
-Route::get('/matiere/{id}/edit','MatiereController@edit');
-Route::put('/matiere/{id}','MatiereController@update');
-Route::delete('/matiere/{id}','MatiereController@destroy');
-
 //cour
 Route::get('/cour/new', 'CourController@create');
 Route::get('/cours', 'CourController@index');
@@ -219,13 +228,19 @@ Route::get('/cour/{id}/edit','CourController@edit');
 Route::put('/cour/{id}','CourController@update');
 Route::get('/cour/{id}','CourController@destroy');
 
-//inscriptions
-Route::get('/renouvelement/new', 'RenouvelementController@create'); 
-Route::get('/renouvelements', 'RenouvelementController@index');
-Route::post('/renouvelement', 'RenouvelementController@store');
-Route::get('/renouvelement/{id}/renouvelement','RenouvelementController@renouvelement');
-Route::put('/renouvelement/{id}','RenouvelementController@update');
-Route::delete('/renouvelement/{id}','RenouvelementController@destroy');
-Route::get('/renouvelement/{id}','RenouvelementController@show');
+Route::get('/parametre','HomeController@parametre'); 
 
+Route::get('events', 'EventController@index');
+Route::post('event', 'EventController@store');
+
+Route::get('/emploi', 'UserController@event');
+
+//tableau de bord
+Route::get('/dashboard', 'DashboardController@index');
+
+//timeline
+Route::get('/timeline', 'BlogController@index');
+Route::post('/timeline', 'BlogController@store');
+Route::get('/timelines', 'BlogController@listeBlog');
+*/
 });

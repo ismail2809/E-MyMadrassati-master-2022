@@ -112,7 +112,8 @@
                 </div>
 
                 <div class="col-sm-8">
-                     <select class="form-select mb-3" name="année_id" title="Année Scholaire" required>  
+                     <select class="form-select mb-3" name="année_id" title="Année Scholaire" required> 
+                          <option selected  disabled="true">Choisir : </option>                      
                       @foreach($années as $année)
                           <option value="{{ $année->id }}"> {{ $année->titre}} </option> 
                       @endforeach
@@ -125,8 +126,9 @@
 
                 <div class="col-sm-8">
                      <select class="form-select mb-3" name="classe_id" title="Classe" required>  
+                          <option selected  disabled="true">Choisir : </option> 
                       @foreach($classes as $classe)
-                          <option value="{{ $classe->id }}"> {{ $classe->titre}} </option> 
+                          <option value="{{ $classe->id }}"> {{ $classe->categories->titre}} => {{ $classe->niveaus->titre}} => {{ $classe->titre}} </option> 
                       @endforeach 
                      </select>
                 </div>
@@ -150,7 +152,8 @@
                 </div>
 
                 <div class="col-sm-8">
-                      <select class="form-select mb-3" name="modalité" title="Modalité" required>  
+                      <select class="form-select mb-3" name="modalité" title="Modalité" required> 
+                        <option selected  disabled="true">Choisir : </option>  
                         <option value="Mensuel"> Mensuel </option>
                         <option value="Trimestriel"> Trimestriel </option> 
                         <option value="Annuel"> Annuel </option>

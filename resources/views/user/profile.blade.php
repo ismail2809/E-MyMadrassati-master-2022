@@ -1,206 +1,195 @@
-@extends('back.master')
+@extends('backend.master')
 @section('title','Profile')
 
 @section('content') 
+
+<div class="container-fluid p-0">
+
+<div class="mb-3">
+    <h4 class="h4 mb-3">
+      <a href="{{url('/editprofile')}}" title="Editer profile">
+        <i class="align-middle me-2" data-feather="edit"></i>  Editer profile
+      </a> 
+    </h4>
+</div>
+
 <div class="row">
-  @if ($message = Session::get('info'))
-  <div class="alert alert-info col-12 text-center">
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <i class="material-icons">close</i>
-      </button>
-      <span><b> {{ $message }} </b></span>
-  </div>
-  @endif
-  @if ($message = Session::get('success'))
-  <div class="alert alert-success col-12 text-center">
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <i class="material-icons">close</i>
-      </button>
-      <span><b> {{ $message }} </b></span>
-  </div>
-  @endif
-  @if ($message = Session::get('error'))
-  <div class="alert alert-danger col-12 text-center">
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <i class="material-icons">close</i>
-      </button>
-      <span><b> {{ $message }} </b></span>
-  </div>
-  @endif
-  @if ($message = Session::get('warning'))
-  <div class="alert alert-warning col-12 text-center">
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <i class="material-icons">close</i>
-      </button>
-      <span><b> {{ $message }} </b></span>
-  </div>
-  @endif 
-    <div class="col-md-9">
-      <div class="card">
-      <div class="card-header card-header-icon card-header-rose">
-        <div class="card-icon">
-          <i class="material-icons">perm_identity</i>
-        </div>
-        <h4 class="card-title">Profile -
-          <small class="category">Mes infos</small>
-        </h4>
-      </div> 
 
-      <div class="card-body">
-        <div class="row">
-          <div class="col-lg-3 col-md-6">
-            <!--
-                      color-classes: "nav-pills-primary", "nav-pills-info", "nav-pills-success", "nav-pills-warning","nav-pills-danger"
-                  -->
-            <ul class="nav nav-pills nav-pills-rose nav-pills-icons flex-column" role="tablist">
-              <li class="nav-item">
-                <a class="nav-link active" data-toggle="tab" href="#link110" role="tablist">
-                @if($user['users']['role'] == "etudiant")
-                  <i class="material-icons">dashboard</i> Etudiant
-                @endif
-                @if($user['users']['role'] == "professeur")
-                  <i class="material-icons">dashboard</i> Professeur
-                @endif  
-                @if($user['users']['role'] == "admin")
-                  <i class="material-icons">dashboard</i> Admin
-                @endif               
-                </a>
-              </li>
-              @if($user['users']['role'] == "etudiant")
-              <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#link111" role="tablist">
-                  <i class="material-icons">settings</i> Parent
-                </a>
-              </li> 
-              @endif
-
-              <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#link112" role="tablist">
-                  <i class="material-icons">vpn_key</i> Mot de passe
-                </a>
-              </li>
-
-            </ul>
-          </div>
-          <div class="col-md-9">
-            <div class="tab-content">
-              <div class="tab-pane active" id="link110">
-                
-                <p class="text-muted"> Nom complet</p> <h6> {{ $user['users']['prenom'] }} {{ $user['users']['nom'] }}</h6> 
-                <br>                
-                <p class="text-muted"> Email </p> <h6> {{ $user['users']['email'] }}</h6>                 
-                <br>
-                <p class="text-muted"> Telephone</p> <h6> {{ $user['users']['tel'] }}</h6> 
-                <br>
-                <p class="text-muted"> Adresse</p> <h6> {{ $user['users']['adresse'] }}</h6> 
-                <br>
-                <p class="text-muted"> Date naissance</p> <h6> {{ $user['users']['ddn'] }}</h6> 
-                <br>
-                <p class="text-muted"> Lieu naissance</p> <h6> {{ $user['users']['lieu_naissance'] }}</h6> 
-                <br>
-                <p class="text-muted"> Sexe</p> <h6> {{ $user['users']['sexe'] }}</h6> 
-                <br>
-                <p class="text-muted"> Role</p> <h6> {{ $user['users']['role'] }}</h6> 
-                <br> 
-
-                @if($user['users']['role'] == "professeur")
-                <p class="text-muted"> Cin</p> <h6> {{ $user['cin'] }}</h6> 
-                <br>
-                <p class="text-muted"> Diplome</p> <h6> {{ $user['diplome'] }}</h6> 
-                <br>
-                <p class="text-muted"> Promo</p> <h6> {{ $user['promo'] }}</h6> 
-                <br>
-                @endif
-                <p class="text-muted"> Création</p> <h6> {{ $user['created_at'] }}</h6>  
-              </div>
-              
-              @if($user['users']['role'] == "etudiant")
-              <div class="tab-pane" id="link111">
-                
-                <p class="text-muted"> Nom complet</p> <h6> {{ $user['prenom_tuteur'] }} {{ $user['nom_tuteur'] }}</h6> 
-                <br>
-                <p class="text-muted"> Telephone</p> <h6> {{ $user['tel_tuteur'] }}</h6>   
-                <br>                
-                <p class="text-muted"> Email </p> <h6> {{ $user['email_tuteur'] }}</h6>                 
-                <br>
-                <p class="text-muted"> Profession</p> <h6> {{ $user['profession_tuteur'] }}</h6> 
-                <br>
-                <p class="text-muted"> Sexe</p> <h6> {{ $user['sexe_tuteur'] }}</h6>  
-                <br>
-                <p class="text-muted"> Création</p> <h6> {{ $user['created_at'] }}</h6>  
-
-              </div>
-              @endif
-              @if($user['users']['role'] == "admin")
-              <div class="tab-pane" id="link111"> 
-                <p class="text-muted"> Création</p> <h6> {{ $user['created_at'] }}</h6>  
-              </div>
-              @endif 
-
-              <div class="tab-pane" id="link112">
-                <div class="card">                    
-                  <div class="card-body">
-                    <form method="post" action="{{ url('/update_password/'.$user['users']['id']) }}" class="form-horizontal">
-                    {{ csrf_field() }}                      
-
-                      <div class="row">
-                        <label class="col-sm-2 col-form-label">Email </label>
-                        <div class="col-sm-10">
-                          <div class="form-group">
-                            <input type="text" class="form-control" name="email" readonly value="{{ $user['users']['email'] }}">
-                          </div>
-                        </div>
-                      </div> 
-
-                      <div class="row">
-                        <label class="col-sm-2 col-form-label">Nouveau Mot de passe </label>
-                        <div class="col-sm-10">
-                          <div class="form-group"> 
-                             <input type="password" id="pwd" class="form-control" name="password" placeholder="Mot de paase" autocomplete="off" value="">
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="row">
-                        <label class="col-sm-2 col-form-label">Confirmer Mot de passe </label>
-                        <div class="col-sm-10">
-                          <div class="form-group"> 
-                             <input type="password" id="pwd" class="form-control" name="password" placeholder="Mot de paase" autocomplete="off" value="">
-                          </div>
-                        </div>
-                      </div>
-
-                      <button type="submit" class="btn btn-warning btn-fill">Modifier</button>
-                      <div class="clearfix"></div>                       
-                    </form>
-                  </div>
-                </div> 
-              </div>
- 
+  <div class="col-md-12">
+         
+         <div class="card"> 
+            <div class="card-header" style="background-color:#207CF3;">
+                <h5 class="card-title mb-0" style="color: white;"><strong>Mes informations </strong></h5>
             </div>
-          </div>
-        </div>
-      </div> 
+            
+            <div class="card-body h-100">
+              <div class="row">
 
-      </div>
-    </div>
-    
-    <div class="col-md-3">
-      <div class="card card-profile">
-             
-              <div class="card-avatar">
-                   <img class="img" src="{{ asset('storage/'.$user['users']['avatar']) }}" />
-               </div>
-              <div class="card-body">
-                <h6 class="card-category text-gray">{{ $user['users']['role'] }}</h6>
-               
+                <div class="col-md-2">
+                  <p class="text-muted"> Prénom : </p>
+                </div>
+                <div class="col-md-4">
+                 <h6> {{ $user['users']['prenom'] }}</h6>            
+                </div>
                 
-                <h4 class="card-title">{{ $user['users']['prenom'] }} {{ $user['users']['nom'] }}</h4>          
-              <br>  
+                <div class="col-md-2">
+                  <p class="text-muted"> Nom : </p>
+                </div>
+                <div class="col-md-4">
+                 <h6> {{ $user['users']['nom'] }}</h6>            
+                </div>          
+
+                <div class="col-md-2">
+                  <p class="text-muted"> Email : </p>
+                </div>
+                <div class="col-md-4">
+                 <h6> {{ $user['users']['email'] }}</h6>            
+                </div>          
+
+                <div class="col-md-2">
+                  <p class="text-muted"> Telephone : </p>
+                </div>
+                <div class="col-md-4">
+                 <h6> {{ $user['users']['tel'] }}</h6>            
+                </div>
+                
+                <div class="col-md-2">
+                  <p class="text-muted"> Sexe : </p>
+                </div>
+                <div class="col-md-4">
+                 <h6> {{ $user['users']['sexe'] }}</h6>            
+                </div>          
+                
+                <div class="col-md-2">
+                  <p class="text-muted"> Date naissance  : </p>
+                </div>
+                <div class="col-md-4">
+                 <h6> {{ $user['users']['ddn'] }}</h6>            
+                </div>
+                
+                <div class="col-md-2">
+                  <p class="text-muted"> Lieu naissance  : </p>
+                </div>
+                <div class="col-md-4">
+                 <h6> {{ $user['users']['lieu_naissance'] }}</h6>            
+                </div>    
+
+                <div class="col-md-2">
+                  <p class="text-muted"> Role : </p>
+                </div>
+                <div class="col-md-4">
+                 <h6> {{ $user['users']['role'] }}</h6>            
+                </div>
+
+                <div class="col-md-2">
+                  <p class="text-muted"> Adresse : </p>
+                </div>        
+                <div class="col-md-10">
+                 <h6> {{ $user['users']['adresse'] }}</h6>            
+                </div>   
+                
+              </div>
+            </div>
          </div>
+          
+        @if($user['users']['role'] == "professeur")          
+        <div class="card"> 
+            <div class="card-header" style="background-color:#207CF3;">
+                <h5 class="card-title mb-0" style="color: white;"><strong>Informations professeur</strong></h5>
+            </div>
+            
+            <div class="card-body h-100">
+              
+              <div class="row">
+
+                <div class="col-md-2">
+                  <p class="text-muted"> Cin : </p>
+                </div>
+                <div class="col-md-4">
+                 <h6> {{ $user['users']['cin'] }}</h6>            
+                </div>
+                
+                <div class="col-md-2">
+                  <p class="text-muted"> Diplome : </p>
+                </div>
+                <div class="col-md-4">
+                 <h6> {{ $user['users']['diplome'] }}</h6>            
+                </div>          
+
+                <div class="col-md-2">
+                  <p class="text-muted"> Promo : </p>
+                </div>
+                <div class="col-md-4">
+                 <h6> {{ $user['users']['promo'] }}</h6>            
+                </div>          
+
+              </div>
+            </div>
+        </div>
+        @endif
+
+
+        @if($user['users']['role'] == "etudiant")  
+         <div class="card"> 
+            <div class="card-header" style="background-color:#207CF3;">
+                <h5 class="card-title mb-0" style="color: white;"><strong>Informations Tuteur</strong></h5>
+            </div>
+            
+            <div class="card-body h-100">      
+              <div class="row">
+
+                <div class="col-md-2">
+                  <p class="text-muted">  Prénom : </p>
+                </div>
+                <div class="col-md-4">
+                 <h6> {{ $user['prenom_tuteur'] }}</h6>            
+                </div>
+
+                <div class="col-md-2">
+                  <p class="text-muted">  Nom : </p>
+                </div>
+                <div class="col-md-4">
+                 <h6> {{ $user['nom_tuteur'] }}</h6>            
+                </div>
+                
+                <div class="col-md-2">
+                  <p class="text-muted"> Telephone : </p>
+                </div>
+                <div class="col-md-4">
+                 <h6> {{ $user['tel_tuteur'] }}</h6>            
+                </div>          
+
+                <div class="col-md-2">
+                  <p class="text-muted"> Email : </p>
+                </div>
+                <div class="col-md-4">
+                 <h6> {{ $user['email_tuteur'] }}</h6>            
+                </div>          
+                
+                <div class="col-md-2">
+                  <p class="text-muted"> Sexe : </p>
+                </div>
+                <div class="col-md-4">
+                 <h6> {{ $user['sexe_tuteur'] }}</h6>            
+                </div>                    
+
+                <div class="col-md-2">
+                  <p class="text-muted"> Profession : </p>
+                </div>
+                <div class="col-md-4">
+                 <h6> {{ $user['profession_tuteur'] }}</h6>            
+                </div>   
+
+              </div>
+            </div>
+         </div>
+        @endif
+      
       </div>
     </div>
+  </div>
+  
 
-</div>              
-
+  </div>
+</div>  
 @endsection

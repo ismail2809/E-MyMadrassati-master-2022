@@ -29,8 +29,12 @@ class Inscription extends Model
 
     public function categories(){
 
-        return $this->belongsTo('App\Categorie','categorie_id');
-        
+        return $this->belongsTo('App\Categorie','categorie_id');        
+    } 
+
+    public function niveaus(){
+
+        return $this->belongsTo('App\Niveau','niveau_id');        
     } 
 
     public function Payment(){

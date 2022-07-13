@@ -3,10 +3,9 @@
           <div class="row text-muted">
             <div class="col-6 text-start">
               <p class="mb-0">
-                 &copy; © E-MySchool by <a href="#" class="text-muted" target="_blank">Ismail ABOUNASR </a>
+                 <a href="#" class="text-muted"> &copy; E-Madrassati by Ismail ABOUNASR </a>
               </p>
             </div>            
-          </div>
           <div class="col-6 text-end">
             <ul class="list-inline">
               <li class="list-inline-item">
@@ -23,5 +22,6 @@
               </li>
             </ul>
           </div> 
+        </div>
       </div>
     </footer>
