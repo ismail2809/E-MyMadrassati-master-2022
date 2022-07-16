@@ -8,6 +8,7 @@ use App\User;
 use App\Agent;
 use App\Etudiant;
 use App\Admin;
+use App\Professeur;
 use Spatie\Permission\Models\Role;
 use DB;
 use Hash;
@@ -125,7 +126,7 @@ class UserController extends Controller
         if ($profile['role'] == "professeur") {
             $user = json_decode(Professeur::where('user_id',$id)->with('users')->first(),true);
         }  
-
+        //dd($user);
         return view('user.updateprofile',compact('user'));
     }
 

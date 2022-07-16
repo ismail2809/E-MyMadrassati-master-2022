@@ -112,21 +112,21 @@
 					                  <p class="text-muted"> Cin : </p>
 					                </div>
 					                <div class="col-md-4">
-							     <input type="text" class="form-control" name="cin" value="{{ $data['cin'] }}">
+							     <input type="text" class="form-control" name="cin" value="{{ $user['cin'] }}">
 					                </div>
 					                
 					                <div class="col-md-2">
 					                  <p class="text-muted"> Diplome : </p>
 					                </div>
 					                <div class="col-md-4">
-							     <input type="text" class="form-control" name="diplome" value="{{ $data['diplome'] }}">
+							     <input type="text" class="form-control" name="diplome" value="{{ $user['diplome'] }}">
 					                </div>          
 
 					                <div class="col-md-2">
 					                  <p class="text-muted"> Promo : </p>
 					                </div>
 					                <div class="col-md-4">
-							     <input type="number" class="form-control" name="promo" value="{{ $data['promo'] }}">
+							     <input type="number" class="form-control" name="promo" value="{{ $user['promo'] }}">
 					                </div>          
 
 					              </div>

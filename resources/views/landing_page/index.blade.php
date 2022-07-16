@@ -33,12 +33,7 @@
     
 </head>
 
-<body>
-    <!--[if IE]>
-    <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
-  <![endif]-->    
-   
-   
+<body> 
     <!--====== PRELOADER PART START ======-->
 
     <div class="preloader">
@@ -98,7 +93,11 @@
                             </div> <!-- navbar collapse -->
                             
                             <div class="navbar-btn d-none d-sm-inline-block">
-                                <a class="main-btn" data-scroll-nav="0" href="{{url('/dashboard')}}">Login</a>
+                                @guest
+                                <a class="main-btn" data-scroll-nav="0" href="{{url('/login')}}">Login</a>
+                                @else
+                                <a class="main-btn  wow fadeInUp" data-scroll-nav="0" href="{{url('/profile')}}">Profile</a>
+                                @endguest
                             </div>
                         </nav> <!-- navbar -->
                     </div>
@@ -115,8 +114,13 @@
                             <h2 class="header-title wow fadeInUp" data-wow-duration="1.3s" data-wow-delay="0.5s">E-madrassati </h2>
                             <!--<p class="text wow fadeInUp" data-wow-duration="1.3s" data-wow-delay="0.8s">Une application de gestion d'école sécurisée, simple et pratique.</p> -->
                             <p class="text wow fadeInUp" data-wow-duration="1.3s" data-wow-delay="0.8s">une solution sur mesure pour répondre au mieux à vos besoins .</p> 
-                      
-                            <a href="{{url('/dashboard')}}" rel="nofollow" class="main-btn wow fadeInUp" data-wow-duration="1.3s" data-wow-delay="1.1s">Demo</a>
+                            
+                            @guest
+                                <a href="{{url('/login')}}" rel="nofollow" class="main-btn wow fadeInUp" data-wow-duration="1.3s" data-wow-delay="1.1s"> Démo &nbsp;&nbsp;<i class="lni-rocket"></i></a>
+                            @else
+                                <a href="{{url('/profile')}}" rel="nofollow" class="main-btn wow fadeInUp" data-wow-duration="1.3s" data-wow-delay="1.1s"> Démo &nbsp;&nbsp;<i class="lni-rocket"></i></a>
+                            @endguest
+                        
                         </div> <!-- header hero content -->
                     </div>
                 </div> <!-- row -->
@@ -182,7 +186,7 @@
                         <div class="services-icon">
                             <img class="shape" src="{{ asset('landing/assets/images/services-shape.svg') }}" alt="shape">
                             <img class="shape-1" src="{{ asset('landing/assets/images/services-shape-1.svg') }}" alt="shape">
-                            <i class="lni-baloon"></i>
+                            <i class="lni-pointer-up"></i>
                         </div>
                         <div class="services-content mt-30">
                             <h4 class="services-title"><a href="#">Facile</a></h4>
@@ -208,7 +212,7 @@
                         <div class="services-icon">
                             <img class="shape" src="{{ asset('landing/assets/images/services-shape.svg') }}" alt="shape">
                             <img class="shape-1" src="{{ asset('landing/assets/images/services-shape-3.svg') }}" alt="shape">
-                            <i class="lni-bolt-alt"></i>
+                            <i class="lni-lock"></i>
                         </div>
                         <div class="services-content mt-30">
                             <h4 class="services-title"><a href="#">Sécurité</a></h4>

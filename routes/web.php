@@ -125,13 +125,27 @@ Route::get('/user/{id}/detail', 'UserController@show')->name('users.show');
 Route::get('/user/{id}/edit', 'UserController@edit')->name('users.edit');
 Route::patch('/user/{id}/update', 'UserController@update')->name('users.update');
 
-//absence
+//all classes
 Route::get('/classes/liste', 'InscriptionController@getAllClasses');
+
+//absence
 Route::get('/classe/{id}/nouvelle_absence', 'AbsenceController@new_absence');
 Route::post('/store_absence', 'AbsenceController@store_absence');
+Route::get('/liste_absences', 'AbsenceController@index');
+Route::get('/absence/{id}/détail', 'AbsenceController@show');
+Route::get('/absence/{id}/edit', 'AbsenceController@edit');
+Route::put('/absence/{id}/update', 'AbsenceController@update');
+Route::delete('/absence/{id}','AbsenceController@destroy');
+
+//notes
+Route::get('/classe/{id}/nouvelle_note', 'NoteController@new_note'); 
 Route::get('/classe/{id}/nouvelle_note', 'NoteController@new_note');
-
-
+Route::post('/store_note', 'NoteController@store_note');
+Route::get('/liste_notes', 'NoteController@index');
+Route::get('/note/{id}/détail', 'NoteController@show');
+Route::get('/note/{id}/edit', 'NoteController@edit');
+Route::put('/note/{id}/update', 'NoteController@update');
+Route::delete('/note/{id}','NoteController@destroy');
 /*
 //ep 
 Route::get('/monespace/notes', 'NoteController@getNotesEtudiantEp');

@@ -106,21 +106,21 @@
                   <p class="text-muted"> Cin : </p>
                 </div>
                 <div class="col-md-4">
-                 <h6> {{ $user['users']['cin'] }}</h6>            
+                 <h6> {{ $user['cin'] }}</h6>            
                 </div>
                 
                 <div class="col-md-2">
                   <p class="text-muted"> Diplome : </p>
                 </div>
                 <div class="col-md-4">
-                 <h6> {{ $user['users']['diplome'] }}</h6>            
+                 <h6> {{ $user['diplome'] }}</h6>            
                 </div>          
 
                 <div class="col-md-2">
                   <p class="text-muted"> Promo : </p>
                 </div>
                 <div class="col-md-4">
-                 <h6> {{ $user['users']['promo'] }}</h6>            
+                 <h6> {{ $user['promo'] }}</h6>            
                 </div>          
 
               </div>

@@ -44,13 +44,13 @@
 			</li>
 
 			<li class="sidebar-item">
-				<a class="sidebar-link" href="{{ url('/absences') }}">
+				<a class="sidebar-link" href="{{ url('/liste_absences') }}">
 			      <i class="align-middle" data-feather="clock"></i> <span class="align-middle">Absence</span>
 			    </a>
 			</li>
 
 			<li class="sidebar-item">
-				<a class="sidebar-link" href="{{ url('/notes') }}">
+				<a class="sidebar-link" href="{{ url('/liste_notes') }}">
 			      <i class="align-middle" data-feather="edit"></i> <span class="align-middle">Note</span>
 			    </a>
 			</li>

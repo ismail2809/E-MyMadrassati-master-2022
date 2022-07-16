@@ -42,12 +42,12 @@ class InscriptionController extends Controller
             $user->sexe     = $request->sexe;
             $user->tel      = $request->tel;
             $user->adresse  = $request->adresse;
-                if($request->hasfile('avatar')){ 
+              /*  if($request->hasfile('avatar')){ 
                     $user->avatar   = $request->avatar->store('avatar');
                 } 
                 else{
                     $user->avatar = "default-avatar.png";
-                }
+                }*/
             $user->role     = "etudiant";
             $user->password = hash::make('123456');
             $user->save();               
@@ -85,7 +85,6 @@ class InscriptionController extends Controller
         $classes = Classe::all();
         $catégories = Categorie::all();
 
-        //dd($inscriptions);
         return view('inscription.index',compact('inscriptions','années','classes','catégories'));
     }
 
@@ -94,7 +93,6 @@ class InscriptionController extends Controller
         $inscription =   Inscription::where('id',$id)->with('années','classes','etudiants.users')->first();
         $années = Année::all();
         $classes = Classe::all();  
-       // dd($inscription);
 
         return view('inscription.edit',compact('années','classes','inscription'));
     }
@@ -103,8 +101,8 @@ class InscriptionController extends Controller
         $inscription = Inscription::find($id);        
         $etudiant = Etudiant::where('id',$inscription->etudiant_id)->first();
         
-        $user = User::where('id',$etudiant->id)->first();
-            //     dd($inscription,$etudiant,$user);
+        $user = User::where('id',$etudiant->user_id)->first();
+        //dd($inscription,$etudiant,$user);
 
             $user->prenom   = $request->prenom;       
             $user->nom      = $request->nom;
@@ -114,9 +112,9 @@ class InscriptionController extends Controller
             $user->sexe     = $request->sexe;
             $user->tel      = $request->tel;
             $user->adresse  = $request->adresse;
-                if($request->hasfile('avatar')){ 
+             /*   if($request->hasfile('avatar')){ 
                     $user->avatar   = $request->avatar->store('avatar');
-                } 
+                } */
             $user->role     = "etudiant"; 
 
             $user->save();               
@@ -158,7 +156,6 @@ class InscriptionController extends Controller
     public function show($id){
         //from id isncription get user_id
         $detail = $this->detailEtudiant($id);  
-    //     dd($detail);                        
         return view('inscription.show',compact('detail'));     
     }
 
@@ -166,116 +163,10 @@ class InscriptionController extends Controller
     public function getAllClasses(){ 
         $annee_id = Session::get('année');
         $allClasses= Inscription::where('annee_id',$annee_id)->groupby('classe_id')->with('classes','classes.categories','classes.niveaus','etudiants','etudiants.users','années')->get(); 
-
+                
         //dd($allClasses);
         return view('absence.allClasses',compact('allClasses'));
-    }
-
-
-    public function create_renouveler($id){
-        dd($id);
-        $inscription =   Inscription::find($id);
-        $années = Année::all();
-        $classes = Classe::all();
-        $catégories = Categorie::all();
-       // $niveaux = Niveau::all();
-        $etudiant = Etudiant::where('id',$inscription->etudiant_id)->first();
-        $user = User::where('id',$etudiant->id)->first();
-        dd($user);
-        //return view('inscription.renouveler',compact('années','classes','catégories','niveaux','inscription','user','etudiant'));
-    }
-
-    public function search_inscription(Request $request){
-
-        $email = $request->email;
-        $num_inscription = $request->num_inscription;
-        $années = Année::all();
-        $classes = Classe::all();
-        $catégories = Categorie::all();
-        //$niveaux = Niveau::all();
-        $data=[]; 
-
-       if(isset($email)){
-                        
-            $user = User::where('email',$email)->first();  
-            
-            if( (!$user) ){
-                return back()->with("error","Opss ! Compte n'existe pas " );        
-            }
-
-            else if($user) { 
-                $etudiant = Etudiant::where('user_id',$user->id)->first(); 
-                $inscription = Inscription::where('etudiant_id',$etudiant->id)->first();
-                $detail = $this->detailEtudiant($inscription->id);
-            } 
-
-        }     
-
-        if(isset($num_inscription)) {
-
-            $inscription = Inscription::where('num_inscription',$num_inscription)->with('classes','categories','années')->first(); 
-
-            if( (!$inscription) ){
-                return back()->with("error","Opss ! Compte n'existe pas " );        
-            } 
-
-            else if($inscription){
-                $detail = $this->detailEtudiant($inscription->id);  
-            }             
-        }         
-
-        return view('inscription.détail',compact('detail'));     
-    }
-
-    public function update_renouveler(Request $request){
-
-        $inscription = Inscription::find($request->id);        
-        $etudiant = Etudiant::where('id',$inscription->etudiant_id)->first();
-        
-        $user = User::where('id',$etudiant->id)->first();
-        
-            $user->prenom   = isset($request->prenom) ? $request->prenom : $user->prenom;                         
-            $user->nom      = isset($request->nom) ? $request->nom : $user->nom;
-            $user->email    = isset($request->email) ? $request->email : $user->email;
-            $user->password = bcrypt('Password123');
-            $user->ddn      = isset($request->ddn) ? $request->ddn : $user->ddn;
-            $user->lieu_naissance  = isset($request->lieu_naissance) ? $request->lieu_naissance : $user->lieu_naissance;
-            $user->sexe     = isset($request->sexe) ? $request->sexe : $user->sexe;
-            $user->tel      = isset($request->tel) ? $request->tel : $user->tel;
-            $user->adresse  = isset($request->adresse) ? $request->adresse : $user->adresse;
-                if($request->hasfile('avatar')){ 
-                    $user->avatar   = $request->avatar->store('avatar');
-                } 
-            $user->role     = "etudiant";
-            $user->save();               
-             
-            $etudiant->user_id           = $user->id;        
-            $etudiant->prenom_tuteur     = isset($request->prenom_tuteur) ? $request->prenom_tuteur : $etudiant->prenom_tuteur;        
-            $etudiant->nom_tuteur        = isset($request->nom_tuteur) ? $request->nom_tuteur : $etudiant->nom_tuteur;       
-            $etudiant->tel_tuteur        = isset($request->tel_tuteur) ? $request->tel_tuteur : $etudiant->tel_tuteur;          
-            $etudiant->email_tuteur      = isset($request->email_tuteur) ? $request->email_tuteur : $etudiant->email_tuteur;          
-            $etudiant->sexe_tuteur       = isset($request->sexe_tuteur) ? $request->sexe_tuteur : $etudiant->sexe_tuteur;          
-            $etudiant->profession_tuteur = isset($request->profession_tuteur) ? $request->profession_tuteur : $etudiant->profession_tuteur;  
-            $etudiant->save();
-
-            $inscriptions                  = new Inscription();         
-            $inscriptions->etudiant_id     = $etudiant->id; 
-            $inscriptions->num_inscription = isset($request->num_inscription) ? $request->num_inscription : $inscription->num_inscription;  
-           //// $inscriptions->niveau_id       = isset($request->niveau_id) ? $request->niveau_id : //$inscription->niveau_id;  
-            $inscriptions->categorie_id    = isset($request->categorie_id) ? $request->categorie_id : $inscription->categorie_id;  
-            $inscriptions->classe_id       = isset($request->classe_id) ? $request->classe_id : $inscription->classe_id;    
-            $inscriptions->annee_id        = isset($request->année_id) ? $request->année_id : $inscription->annee_id;  
-
-            $inscriptions->tarif           = isset($request->tarif) ? $request->tarif : $inscription->tarif;       
-            $inscriptions->modalité        = isset($request->modalité) ? $request->modalité : $inscription->modalité;               
-            $inscriptions->transport       = isset($request->transport) ? $request->transport : $inscription->transport;                
-            $inscriptions->cantine         = isset($request->cantine) ? $request->cantine : $inscription->cantine;               
-            $inscriptions->description     = isset($request->description) ? $request->description : $inscription->description;
-         $inscriptions->save();
-
-        return redirect('/inscriptions')->with('warning','Inscription est renouvelé avec succès');
-    }         
-
+    } 
 
     public function detailEtudiant($id){
 

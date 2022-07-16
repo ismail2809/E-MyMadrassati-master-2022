@@ -18,6 +18,7 @@
 
   <link rel="stylesheet" type="text/css" href="{{ asset('backend/css/dataTables.bootstrap.css') }}"/> 
   <link rel="stylesheet" type="text/css" href="{{ asset('backend/css/jquery.dataTables.css') }}"/>
+  <link rel="stylesheet" type="text/css" href="{{ asset('backend/css/responsive.bootstrap.min.css') }}"/>
 
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
@@ -51,10 +52,26 @@
   <script type="text/javascript" src="{{ asset('backend/js/jquery-3.6.0.js') }}"></script>  
   <script type="text/javascript" src="{{ asset('backend/js/jquery.dataTables.js') }}"></script> 
   <script type="text/javascript" src="{{ asset('backend/js/dataTables.bootstrap.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('backend/js/dataTables.responsive.min.js') }}"></script>
   <script type="text/javascript">
-    $(document).ready(function () {
-        $('#example').DataTable();
-    });
+    $(document).ready(function() {
+      var table = $('#example').DataTable( {
+          responsive: true
+      } );
+      var table = $('#nopagination').DataTable( {
+          responsive: true,
+          paging: false,
+          ordering: false,
+          info: false,
+      } );  
+      var table = $('#nosearching').DataTable( {
+          responsive: true,
+          paging: false,
+          ordering: false,
+          info: false,
+          searching: false
+      } );   
+    } );
   </script>
 </body>
 </html>
