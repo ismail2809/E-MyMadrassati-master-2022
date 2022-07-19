@@ -37,8 +37,8 @@ class Inscription extends Model
         return $this->belongsTo('App\Niveau','niveau_id');        
     } 
 
-    public function Payment(){
-        return $this->hasMany('App\Payment');
+    public function Paiement(){
+        return $this->hasMany('App\Paiement');
     }
 
     public function absence(){

@@ -28,8 +28,8 @@
 			</li>
 
 			<li class="sidebar-item">
-				<a class="sidebar-link" href="{{ url('/payments') }}">
-			      <i class="align-middle" data-feather="dollar-sign"></i> <span class="align-middle">Payments</span>
+				<a class="sidebar-link" href="{{ url('/paiements') }}">
+			      <i class="align-middle" data-feather="dollar-sign"></i> <span class="align-middle">Paiements</span>
 			    </a>
 			</li>
 
@@ -108,6 +108,12 @@
 			<li class="sidebar-item">
 				<a class="sidebar-link" href="{{ url('/matieres') }}">
 			      <i class="align-middle" data-feather="book"></i> <span class="align-middle">Matière</span>
+			    </a>
+			</li>
+
+			<li class="sidebar-item">
+				<a class="sidebar-link" href="{{ url('/type_paiements') }}">
+			      <i class="align-middle" data-feather="package"></i> <span class="align-middle">Les types paiements</span>
 			    </a>
 			</li>
 

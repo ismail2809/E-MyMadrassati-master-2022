@@ -22,8 +22,8 @@ class Etudiant extends Model
         return $this->belongsTo('App\User','user_id');        
     }
 
-    public function payment(){
-        return $this->hasMany('App\Payment');
+    public function paiement(){
+        return $this->hasMany('App\Paiement');
     }
     public function renouvelements(){
         return $this->hasMany('App\Renouvelement');        

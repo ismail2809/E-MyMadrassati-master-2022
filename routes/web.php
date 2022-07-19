@@ -42,6 +42,8 @@ Route::get('/années', 'AnnéeController@index');
 Route::get('/année/{id}/edit','AnnéeController@edit');
 Route::put('/annee/{id}','AnnéeController@update');
 Route::delete('/année/{id}','AnnéeController@destroy');
+
+//categorie
 Route::get('/categorie/new', 'CategorieController@create');
 Route::get('/categories', 'CategorieController@index');
 Route::get('/categorie/{id}/edit','CategorieController@edit');
@@ -138,14 +140,35 @@ Route::put('/absence/{id}/update', 'AbsenceController@update');
 Route::delete('/absence/{id}','AbsenceController@destroy');
 
 //notes
-Route::get('/classe/{id}/nouvelle_note', 'NoteController@new_note'); 
-Route::get('/classe/{id}/nouvelle_note', 'NoteController@new_note');
+Route::get('/classe/{id}/nouvelle_note', 'NoteController@new_note');  
 Route::post('/store_note', 'NoteController@store_note');
 Route::get('/liste_notes', 'NoteController@index');
 Route::get('/note/{id}/détail', 'NoteController@show');
 Route::get('/note/{id}/edit', 'NoteController@edit');
 Route::put('/note/{id}/update', 'NoteController@update');
 Route::delete('/note/{id}','NoteController@destroy');
+
+
+//type_paiement
+Route::get('/type_paiement/new', 'Type_paiementController@create');
+Route::get('/type_paiements', 'Type_paiementController@index');
+Route::get('/type_paiement/{id}/edit','Type_paiementController@edit');
+Route::put('/type_paiement/{id}','Type_paiementController@update');
+Route::delete('/type_paiement/{id}','Type_paiementController@destroy');
+Route::post('/type_paiement', 'Type_paiementController@store');
+
+//paiements
+Route::get('/paiement/new', 'PaiementController@create');
+Route::get('/paiements', 'PaiementController@index');
+Route::get('/paiement/{id}/edit','PaiementController@edit');
+Route::put('/paiement/{id}','PaiementController@update');
+Route::delete('/paiement/{id}','PaiementController@destroy');
+Route::post('/paiement', 'PaiementController@store');
+Route::get('/classe/{id}/nouvelle_paiement', 'PaiementController@new_paiement');  
+Route::get('/listes_classes', 'PaiementController@getAllClasses');
+Route::get('/paiement/{id}/détail','PaiementController@show');
+
+
 /*
 //ep 
 Route::get('/monespace/notes', 'NoteController@getNotesEtudiantEp');
