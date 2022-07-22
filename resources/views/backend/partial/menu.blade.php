@@ -10,7 +10,7 @@
 			</li>
 
 			<li class="sidebar-item">
-				<a class="sidebar-link" href="{{ url('/') }}">
+				<a class="sidebar-link" href="{{ url('/dashboard') }}">
      			 <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboard</span>
     			</a>
 			</li> 
@@ -19,17 +19,11 @@
 				<a class="sidebar-link" href="{{ url('/inscriptions') }}">
 			      <i class="align-middle" data-feather="folder"></i> <span class="align-middle">Inscriptions</span>
 			    </a>
-			</li>
+			</li> 
 
 			<li class="sidebar-item">
-				<a class="sidebar-link" href="{{ url('/renouvelements') }}">
-			      <i class="align-middle" data-feather="refresh-cw"></i> <span class="align-middle">Renouvelements</span>
-			    </a>
-			</li>
-
-			<li class="sidebar-item">
-				<a class="sidebar-link" href="{{ url('/payments') }}">
-			      <i class="align-middle" data-feather="dollar-sign"></i> <span class="align-middle">Payments</span>
+				<a class="sidebar-link" href="{{ url('/paiements') }}">
+			      <i class="align-middle" data-feather="dollar-sign"></i> <span class="align-middle">Paiements</span>
 			    </a>
 			</li>
 
@@ -108,6 +102,12 @@
 			<li class="sidebar-item">
 				<a class="sidebar-link" href="{{ url('/matieres') }}">
 			      <i class="align-middle" data-feather="book"></i> <span class="align-middle">Matière</span>
+			    </a>
+			</li>
+
+			<li class="sidebar-item">
+				<a class="sidebar-link" href="{{ url('/type_paiements') }}">
+			      <i class="align-middle" data-feather="package"></i> <span class="align-middle">Les types paiements</span>
 			    </a>
 			</li>
 

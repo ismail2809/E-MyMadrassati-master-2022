@@ -56,21 +56,40 @@
   <script type="text/javascript">
     $(document).ready(function() {
       var table = $('#example').DataTable( {
-          responsive: true
+          responsive: true,
+          language: {
+              url: 'http://127.0.0.1:8000/backend/js/i18n/French.json'
+          }
       } );
       var table = $('#nopagination').DataTable( {
           responsive: true,
           paging: false,
           ordering: false,
           info: false,
+          language: {
+              url: 'http://127.0.0.1:8000/backend/js/i18n/French.json'
+          }
       } );  
       var table = $('#nosearching').DataTable( {
           responsive: true,
           paging: false,
           ordering: false,
           info: false,
-          searching: false
+          searching: false,
+          language: {
+              url: 'http://127.0.0.1:8000/backend/js/i18n/French.json'
+          }
       } );   
+      var table = $('#ordering').DataTable( {
+          responsive: true,
+          paging: false, 
+          info: false,
+          searching: false, 
+          ordering: true, 
+          language: {
+              url: 'http://127.0.0.1:8000/backend/js/i18n/French.json'
+          }
+      } );  
     } );
   </script>
 </body>

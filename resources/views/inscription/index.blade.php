@@ -25,7 +25,8 @@
                       <th style="color: red"><b>Classe</b></th>
                       <th style="color: red"><b>Tarif</b></th>
                       <th style="color: red"><b>Année</b></th>    
-                      <th style="color: red"><b>Détails</b></th>   
+                      <th style="color: red"><b>Date</b></th>    
+                      <th style="color: red"><b>Actions</b></th>   
                     </tr>
                 </thead>
                 <tbody>
@@ -36,10 +37,15 @@
                           <td>{{ $inscription->etudiants->users->prenom }} {{ $inscription->etudiants->users->nom }}</td> 
                           <td>{{ $inscription->classes->titre }}</td> 
                           <td>{{ $inscription->tarif }}</td> 
-                          <td>{{ $inscription->années->titre }}</td>  
+                          <td>{{ $inscription->années->titre }}</td> 
+                          <td>{{ $inscription->created_at->format('H:m | d-M-Y') }}</td> 
                           <td>
                             <a href="{{url('/inscription/'.$inscription->id)}}" title="détail"><i class="align-middle me-2" data-feather="folder"></i>  
                             </a> 
+                            <a href="{{url('/etudiant/'.$inscription->etudiant_id.'/nouvelle_paiement')}}" title="nouvelle paiement"><i class="align-middle me-2" data-feather="dollar-sign"></i>  
+                            </a> 
+                            <a href="{{url('/renouvelement/'.$inscription->id.'/new')}}" title="renouveler" style="color:green;"><i class="align-middle me-2" data-feather="refresh-cw"></i>  
+                            </a>
                             <a href="{{url('/inscription/'.$inscription->id.'/edit')}}" title="modifier" style="color:orange;"><i class="align-middle me-2" data-feather="edit"></i>  
                             </a>
                           </td> 

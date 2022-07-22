@@ -30,9 +30,9 @@
 		          <tbody> 
 		            @foreach($categories as $categorie)
 		            <tr>
-		             <td style="text-align: center;">{{ $categorie->id }}</th> 	              
-		             <td style="text-align: center;">{{ $categorie->titre }}</th> 	              
-		             <td style="text-align: center;">{{ $categorie->description }}</th> 	              
+		             <td style="text-align: center;">{{ $categorie->id }}</td> 	              
+		             <td style="text-align: center;">{{ $categorie->titre }}</td> 	              
+		             <td style="text-align: center;">{{ $categorie->description }}</td> 	              
 		             <td style="text-align: center;">
 		               	<a href="{{url('/categorie/'.$categorie->id.'/edit')}}" title="Modifier">
 		               		<i class="align-middle me-2" data-feather="edit"></i> 

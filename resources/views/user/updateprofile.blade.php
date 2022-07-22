@@ -8,7 +8,7 @@
 <div class="mb-3">
     <h4 class="h4 mb-3">
       <a href="{{url('/profile')}}" title="Retour profile">
-        <i class="align-middle me-2" data-feather="arrow-left-circle"></i>  Retour profile
+        <i class="align-middle me-2" data-feather="arrow-left-circle"></i>  Retour vers profile
       </a> 
     </h4>
 </div>

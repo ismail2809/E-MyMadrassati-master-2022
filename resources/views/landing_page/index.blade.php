@@ -118,7 +118,7 @@
                             @guest
                                 <a href="{{url('/login')}}" rel="nofollow" class="main-btn wow fadeInUp" data-wow-duration="1.3s" data-wow-delay="1.1s"> Démo &nbsp;&nbsp;<i class="lni-rocket"></i></a>
                             @else
-                                <a href="{{url('/profile')}}" rel="nofollow" class="main-btn wow fadeInUp" data-wow-duration="1.3s" data-wow-delay="1.1s"> Démo &nbsp;&nbsp;<i class="lni-rocket"></i></a>
+                                <a href="{{url('/profile')}}" rel="nofollow" class="main-btn wow fadeInUp" data-wow-duration="1.3s" data-wow-delay="1.1s"> Profile &nbsp;&nbsp;<i class="lni-rocket"></i></a>
                             @endguest
                         
                         </div> <!-- header hero content -->
@@ -382,17 +382,16 @@
                         <div class="footer-link d-flex mt-50 justify-content-md-between">
                             <div class="link-wrapper wow fadeIn" data-wow-duration="1s" data-wow-delay="0.4s">
                                 <div class="footer-title">
-                                    <h4 class="title">Quick Link</h4>
+                                    <h4 class="title">Lien rapide</h4>
                                 </div>
                                 <ul class="link">  
                                     <li><a href="#">Politique de confidentialité</a></li>
-                                    <li><a href="#">Conditions d'utilisation</a></li>
-                                    <li><a href="#">Pricing</a></li>
+                                    <li><a href="#">Conditions d'utilisation</a></li> 
                                 </ul>
                             </div> <!-- footer wrapper -->
                             <div class="link-wrapper wow fadeIn" data-wow-duration="1s" data-wow-delay="0.6s">
                                 <div class="footer-title">
-                                    <h4 class="title">Resources</h4>
+                                    <h4 class="title">Ressources</h4>
                                 </div>
                                 <ul class="link">
                                     <li><a href="#home">Home</a></li>
@@ -409,9 +408,9 @@
                                 <h4 class="title">Contactez-nous</h4>
                             </div>
                             <ul class="contact">
-                                <li>+809272561823</li>
+                                <li>+212649074204</li>
                                 <li>info@gmail.com</li>
-                                <li>www.yourweb.com</li>
+                                <li>www.digitalsolution.ma</li>
                                 <li>Anfa , Casablanca <br> Maroc.</li>
                             </ul>
                         </div> <!-- footer contact -->
@@ -423,7 +422,7 @@
                     <div class="col-lg-12">
                         <div class="copyright d-sm-flex justify-content-between">
                             <div class="copyright-content">
-                                <p class="text">Copyright 2021 <a href="#" rel="nofollow"> E-Madrassati </a> tous les droits sont résérvés.</p>
+                                <p class="text">Copyright 2022 <a href="#" rel="nofollow"> E-Madrassati </a> tous les droits sont résérvés.</p>
                             </div> <!-- copyright content -->
                         </div> <!-- copyright -->
                     </div>

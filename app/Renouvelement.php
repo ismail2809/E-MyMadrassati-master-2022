@@ -31,11 +31,7 @@ class Renouvelement extends Model
 
         return $this->belongsTo('App\Categorie','categorie_id');
         
-    } 
-
-    public function Payment(){
-        return $this->hasMany('App\Payment');
-    }
+    }  
 
     public function absence(){
 

@@ -1,28 +1,18 @@
+@extends('backend.master')
 
-@extends('layouts.app')
-
+@section('title','Users') 
 
 @section('content')
+
+
+<h4 class="h4 mb-3">
+ <a class="btn btn-success" href="{{ route('users.create') }}"> 
+<i class="align-middle me-2" data-feather="plus-circle"></i>  Create New User
+</a> 
+</h4>
+ 
 <div class="row">
-    <div class="col-lg-12 margin-tb">
-        <div class="pull-left">
-            <h2>Users Management</h2>
-        </div>
-        <div class="pull-right">
-            <a class="btn btn-success" href="{{ route('users.create') }}"> Create New User</a>
-        </div>
-    </div>
-</div>
-
-
-@if ($message = Session::get('success'))
-<div class="alert alert-success">
-  <p>{{ $message }}</p>
-</div>
-@endif
-
-
-<table class="table table-bordered">
+ <table class="table table-bordered">
  <tr>
    <th>Name</th>
    <th>Email</th>
@@ -47,5 +37,7 @@
     </td>
   </tr>
  @endforeach
-</table>
+</table>   
+</div>
+
 @endsection 

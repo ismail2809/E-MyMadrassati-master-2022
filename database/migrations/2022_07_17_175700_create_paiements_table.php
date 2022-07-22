@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePaymentsTable extends Migration
+class CreatePaiementsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,16 @@ class CreatePaymentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('payments', function (Blueprint $table) {
+        Schema::create('paiements', function (Blueprint $table) {
             $table->bigIncrements('id'); 
-            $table->unsignedBigInteger('etudiant_id');            
-            $table->foreign('etudiant_id')->references('id')->on('etudiants')->onDelete('cascade'); 
             $table->unsignedBigInteger('annee_id');
             $table->foreign('annee_id')->references('id')->on('années')->onDelete('cascade');
-            $table->unsignedBigInteger('inscription_id');
-            $table->foreign('inscription_id')->references('id')->on('inscriptions')->onDelete('cascade');
+            $table->unsignedBigInteger('etudiant_id');
+            $table->foreign('etudiant_id')->references('id')->on('etudiants')->onDelete('cascade');
+            $table->unsignedBigInteger('type_paiement_id');
+            $table->foreign('type_paiement_id')->references('id')->on('type_paiements')->onDelete('cascade');
             $table->string('versement')->nullable();
-            $table->string('mode')->nullable();
+            $table->string('mode')->nullable(); 
             $table->string('mois')->nullable();
             $table->string('description')->nullable();
             $table->timestamps();
@@ -36,6 +36,6 @@ class CreatePaymentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('payments');
+        Schema::dropIfExists('paiements');
     }
 }

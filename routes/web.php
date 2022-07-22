@@ -16,12 +16,14 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+ 
 
 Auth::routes(); 
 
-//Auth::routes(['register' => true]);
+Auth::routes(['register' => false]);
 
 Route::get('/home', 'HomeController@index')->name('home');
+
 //landing page
 Route::get('/', function () {
         return view('landing_page.index');
@@ -29,8 +31,11 @@ Route::get('/', function () {
 
 Route::group(['middleware' => ['auth']], function() {
 
+//dashboard
+Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
+
 Route::resource('roles','RoleController');
-Route::resource('users','UserController');
+//Route::resource('users','UserController');
 Route::resource('products','ProductController');
 
 Route::get('/sessions/{id}', 'HomeController@putAnnee');
@@ -42,6 +47,8 @@ Route::get('/années', 'AnnéeController@index');
 Route::get('/année/{id}/edit','AnnéeController@edit');
 Route::put('/annee/{id}','AnnéeController@update');
 Route::delete('/année/{id}','AnnéeController@destroy');
+
+//categorie
 Route::get('/categorie/new', 'CategorieController@create');
 Route::get('/categories', 'CategorieController@index');
 Route::get('/categorie/{id}/edit','CategorieController@edit');
@@ -121,6 +128,8 @@ Route::get('/user/{id}/edit_password', 'PasswordController@edit_password');
 Route::post('/update_password/{id}', 'PasswordController@update_password');
 
 //user
+Route::get('users/create', 'UserController@create')->name('users.create');
+Route::post('users', 'UserController@store')->name('users.store');
 Route::get('/user/{id}/detail', 'UserController@show')->name('users.show');
 Route::get('/user/{id}/edit', 'UserController@edit')->name('users.edit');
 Route::patch('/user/{id}/update', 'UserController@update')->name('users.update');
@@ -138,20 +147,52 @@ Route::put('/absence/{id}/update', 'AbsenceController@update');
 Route::delete('/absence/{id}','AbsenceController@destroy');
 
 //notes
-Route::get('/classe/{id}/nouvelle_note', 'NoteController@new_note'); 
-Route::get('/classe/{id}/nouvelle_note', 'NoteController@new_note');
+Route::get('/classe/{id}/nouvelle_note', 'NoteController@new_note');  
 Route::post('/store_note', 'NoteController@store_note');
 Route::get('/liste_notes', 'NoteController@index');
 Route::get('/note/{id}/détail', 'NoteController@show');
 Route::get('/note/{id}/edit', 'NoteController@edit');
 Route::put('/note/{id}/update', 'NoteController@update');
 Route::delete('/note/{id}','NoteController@destroy');
+
+
+//type_paiement
+Route::get('/type_paiement/new', 'Type_paiementController@create');
+Route::get('/type_paiements', 'Type_paiementController@index');
+Route::get('/type_paiement/{id}/edit','Type_paiementController@edit');
+Route::put('/type_paiement/{id}','Type_paiementController@update');
+Route::delete('/type_paiement/{id}','Type_paiementController@destroy');
+Route::post('/type_paiement', 'Type_paiementController@store');
+
+//paiements
+Route::get('/paiement/new', 'PaiementController@create');
+Route::get('/paiements', 'PaiementController@index');
+Route::get('/paiement/{id}/edit','PaiementController@edit');
+Route::put('/paiement/{id}/update','PaiementController@update');
+Route::delete('/paiement/{id}','PaiementController@destroy');
+Route::post('/paiement', 'PaiementController@store');
+Route::get('/classe/{id}/nouvelle_paiement', 'PaiementController@new_paiement');  
+Route::get('/etudiant/{id}/nouvelle_paiement', 'PaiementController@newPaiementByEtudiant');  
+Route::get('/paiements/listes_classes', 'PaiementController@getAllClasses');
+Route::get('/paiement/{id}/détail','PaiementController@show');
+Route::get('/paiement/{id}/historique','PaiementController@historiquePaiement');
+
+Route::get('/attestation_paiement/{id}', 'PaiementController@imprimerAttestationPaiement')->name('attestation_paiement');
+
+
+//renouvelement 
+Route::get('/renouvelement/{id}/new','RenouvelementController@new');
+Route::put('/renouvelement/{id}','RenouvelementController@store');
+
 /*
-//ep 
-Route::get('/monespace/notes', 'NoteController@getNotesEtudiantEp');
+//monespace 
+Route::get('/monespace/notes', 'NoteController@getNotesEtudiantEp'); 
 Route::get('/monespace/absences', 'AbsenceController@getAbsencesEtudiantEp');
 Route::get('/monespace/payments', 'PaymentController@getPaymentsEtudiantEp');
-Route::get('/monespace/emploi', 'EventController@index');
+Route::get('/monespace/emploi', 'EventController@index'); 
+Route::get('/monespace', 'UserController@profile');
+Route::post('/monespace/updateprofile', 'UserController@update_profile');
+Route::get('/monespace/editprofile', 'UserController@editprofile');
 
 
 //inscriptions

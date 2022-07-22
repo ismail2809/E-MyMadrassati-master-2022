@@ -64,11 +64,11 @@
 	          <tbody> 
 	            @foreach($etudiants as $etudiant)
 	            <tr>
-	             <td style="text-align: center;">{{ $etudiant->users->prenom }} {{ $etudiant->users->nom }}</th> 	              
-	             <td style="text-align: center;">{{ $etudiant->users->email }}</th> 	              
-	             <td style="text-align: center;">{{ $etudiant->users->tel }}</th> 	              
-	             <td style="text-align: center;">{{ $etudiant->users->sexe }}</th> 	              	             
-	             <td style="text-align: center;">{{ $etudiant->users->ddn }}</th> 
+	             <td style="text-align: center;">{{ $etudiant->users->prenom }} {{ $etudiant->users->nom }}</td> 	              
+	             <td style="text-align: center;">{{ $etudiant->users->email }}</td> 	              
+	             <td style="text-align: center;">{{ $etudiant->users->tel }}</td> 	              
+	             <td style="text-align: center;">{{ $etudiant->users->sexe }}</td> 	              	             
+	             <td style="text-align: center;">{{ $etudiant->users->ddn }}</td> 
 	             <td class="td-actions text-center">
 	               	<a href="{{url('/etudiant/'.$etudiant->id.'/détail')}}"  class="btn btn-info btn-round" title="détail"><i class="material-icons">remove_red_eye</i> 
                   	</a> 

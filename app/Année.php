@@ -17,12 +17,12 @@ class Année extends Model
     public function note(){
         return $this->hasMany('App\Note');
     }
-    
-    public function demandedocument(){
-        return $this->hasMany('App\Demandedocument');
-    }
-
+     
     public function renouvelements(){
         return $this->hasMany('App\Renouvelement');        
+    }
+
+    public function paiement(){
+        return $this->hasMany('App\Paiement');
     }
 }

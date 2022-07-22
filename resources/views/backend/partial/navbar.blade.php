@@ -15,7 +15,7 @@
               <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end py-0" aria-labelledby="messagesDropdown">
                 <div class="dropdown-menu-header">
                   <div class="position-relative">
-                    Année unniversitaire
+                    Année scolaire
                   </div>
                 </div>
                 <div class="list-group">

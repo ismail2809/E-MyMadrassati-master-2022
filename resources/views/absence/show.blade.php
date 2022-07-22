@@ -134,8 +134,8 @@
                          <form action="{{url('/absence/'.$absence->id)}}" method="post">
                             {{csrf_field()}}
                             {{method_field('DELETE')}}
-                            <button type="submit"  class="btn btn-danger" title="Suprimer">
-                            <i class="align-middle" data-feather="delete"></i>  
+                            <button type="submit"  class="btn btn-danger btn-sm" title="Suprimer">
+                            <i class="align-middle" data-feather="trash-2"></i> 
                          </form>  
                      </td> 
 										</tr>
