@@ -9,6 +9,7 @@ use Session;
 use App\Année; 
 use App\Inscription; 
 use App\Classe; 
+use PDF;
 
 class PaiementController extends Controller
 {
@@ -36,28 +37,20 @@ class PaiementController extends Controller
     }
 
     public function store(Request $request){
-        
-        $type_paiements = $request->type_paiement_id;
-        $versements = $request->versement;    
-        $modes = $request->mode;         
-        $mois = $request->mois;         
-        $descriptions = $request->description;  
-        $etudiants = $request->etudiant_id; 
+        //dd($request);
+        $type_paiements = $request->type_paiement_id; 
 
-        foreach($etudiants as $key => $etudiant){ 
-
-             if(!empty($versements[$etudiant])){       
+        foreach($type_paiements as $key => $type_paiement){       
 
                 $paiement                   = new Paiement();
                 $paiement->annee_id         = $request->annee_id;   
-                $paiement->etudiant_id      = $etudiant; 
-                $paiement->type_paiement_id = $type_paiements[$etudiant];          
-                $paiement->versement        = $versements[$etudiant];          
-                $paiement->mode             = $modes[$etudiant];          
-                $paiement->mois             = $mois[$etudiant];              
-                $paiement->description      = $descriptions[$etudiant];  
-                $paiement->save(); 
-            }
+                $paiement->etudiant_id      = $request->etudiant_id; 
+                $paiement->type_paiement_id = $type_paiement;          
+                $paiement->versement        = $request->versement;          
+                $paiement->mode             = $request->mode;          
+                $paiement->mois             = $request->mois;              
+                $paiement->description      = $request->description;  
+                $paiement->save();  
         }
 
         return redirect('/paiements')->with('success','paiement est ajoutée avec succès');
@@ -65,11 +58,12 @@ class PaiementController extends Controller
 
     public function edit($id){
 
-    $paiement = Paiement::where('id',$id)->with('années','type_paiements','etudiants','etudiants.users')->first();
-    $response =   Inscription::where('etudiant_id',$paiement->etudiant_id)->with('classes')->first();
-    $type_paiements = Type_paiement::all();
-     
-        return view('paiement.edit',compact('paiement','response','type_paiements'));   
+        $paiement = Paiement::where('id',$id)->with('années','type_paiements','etudiants','etudiants.users')->first();
+        $response =   Inscription::where('etudiant_id',$paiement->etudiant_id)->with('classes')->first();
+        $type_paiements = Type_paiement::all();
+        $années = Année::all();
+         
+        return view('paiement.edit',compact('paiement','response','type_paiements','années'));   
     }
     
     public function update($id,Request $request){
@@ -95,6 +89,15 @@ class PaiementController extends Controller
         return redirect('/paiements')->with('error','paiement est supprimée avec succès');        
     }
 
+    public function show($id){
+        
+        $paiement = Paiement::where('id',$id)->with('années','type_paiements','etudiants','etudiants.users')->first();
+        $response =   Inscription::where('etudiant_id',$paiement->etudiant_id)->with('classes')->first();
+        
+        
+        return view('paiement.show',compact('paiement','response'));        
+    }
+
 
     public function getAllClasses(){ 
         $annee_id = Session::get('année');
@@ -109,18 +112,49 @@ class PaiementController extends Controller
         $classe = Classe::where('id',$id_classe)->with('categories','niveaus')->first();
         $annee_id = Session::get('année');        
         $allClasses= Inscription::where('annee_id',$annee_id)->where('classe_id',$id_classe)->with('classes','classes.categories','classes.niveaus','etudiants','etudiants.users','années')->get();  
-        $années = Année::all();
-        $type_paiements = Type_paiement::all();
+        $année = Année::where('id',$annee_id)->first(); 
  
-        return view('paiement.new_par_classe',compact('allClasses','id_classe','classe','années','type_paiements'));
+        return view('paiement.new_par_classe',compact('allClasses','id_classe','classe','année'));
     }
 
-    public function show($id){
+    public function newPaiementByEtudiant($id)
+    {        
+        $annee_id = Session::get('année');  
+        $années = Année::all();
+        $type_paiements = Type_paiement::all();
+        $etudiants= Inscription::where('annee_id',$annee_id)->where('etudiant_id',$id)->with('classes','classes.categories','classes.niveaus','etudiants','etudiants.users','années')->first();  
+        $historiques = $this->historiquePaiementsByOneEtudiant($id); 
+        //dd($historiques);
         
-        $paiement = Paiement::where('id',$id)->with('années','type_paiements','etudiants','etudiants.users')->first();
-        $response =   Inscription::where('etudiant_id',$paiement->etudiant_id)->with('classes')->first();
+        return view('paiement.new_par_etudiant',compact('etudiants','années','type_paiements','annee_id','historiques'));
+    }
+
+    public function historiquePaiement($id){
         
+        $annee_id = Session::get('année');          
+        $historiques = Paiement::where('etudiant_id',$id)->where('annee_id',$annee_id)->with('années','type_paiements','etudiants','etudiants.users')->get();
+        $response =   Inscription::where('etudiant_id',$id)->where('annee_id',$annee_id)->with('classes')->first();      
         
-        return view('paiement.show',compact('paiement','response'));        
+        return view('paiement.historique',compact('historiques','response'));        
+    }
+
+    public function historiquePaiementsByOneEtudiant($id){
+        $annee_id = Session::get('année');          
+        $historiques = Paiement::where('etudiant_id',$id)->where('annee_id',$annee_id)->with('années','type_paiements','etudiants','etudiants.users')->get();
+
+        return $historiques;
+    }
+
+    public function imprimerAttestationPaiement($id){
+        $annee_id = Session::get('année');          
+        
+        $historiques = $this->historiquePaiementsByOneEtudiant($id);
+        $response =   Inscription::where('etudiant_id',$id)->where('annee_id',$annee_id)->with('classes')->first();      
+
+        $data = ['title' => 'Welcome to HDTuto.com']; 
+        $pdf = PDF::loadView('paiement/attestation_paiement', ['historiques'=>$historiques,'response' => $response]); 
+        //return $pdf->download('attestation_paiement.pdf');
+
+        return view('paiement.attestation_paiement', compact('historiques','response'));
     }
 }

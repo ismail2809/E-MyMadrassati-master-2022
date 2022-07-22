@@ -31,10 +31,10 @@
 		          <tbody> 
 		            @foreach($type_paiements as $type_paiement)
 		            <tr>
-		             <td style="text-align: center;">{{ $type_paiement->id }}</th> 	              
-		             <td style="text-align: center;">{{ $type_paiement->titre }}</th> 	              
-		             <td style="text-align: center;">{{ $type_paiement->montant }}</th> 	              
-		             <td style="text-align: center;">{{ $type_paiement->description }}</th> 	              
+		             <td style="text-align: center;">{{ $type_paiement->id }}</td> 	              
+		             <td style="text-align: center;">{{ $type_paiement->titre }}</td> 	              
+		             <td style="text-align: center;">{{ $type_paiement->montant }}</td> 	              
+		             <td style="text-align: center;">{{ $type_paiement->description }}</td> 	              
 		             <td style="text-align: center;">
 		               	<a href="{{url('/type_paiement/'.$type_paiement->id.'/edit')}}" title="Modifier">
 		               		<i class="align-middle me-2" data-feather="edit"></i> 
@@ -44,8 +44,8 @@
 	                  	 <form action="{{url('/type_paiement/'.$type_paiement->id)}}" method="post">
 		                      {{csrf_field()}}
 		                      {{method_field('DELETE')}}
-		                      <button type="submit"  class="btn btn-danger btn-round" title="Suprimer">
-		                 	     <i class="align-middle me-2" data-feather="trash-2"></i>
+		                      <button type="submit"  class="btn btn-danger btn-sm" title="Suprimer">
+                            <i class="align-middle" data-feather="trash-2"></i> 
 		                      </button>
 	                     </form>  
 		             </td>                

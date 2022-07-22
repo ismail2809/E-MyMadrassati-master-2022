@@ -108,7 +108,10 @@ class UserController extends Controller
         if ($profile['role'] == "professeur") {
             $user = json_decode(Professeur::where('user_id',$id)->with('users')->first(),true);
         }
-        //dd($user);
+        if ($profile['role'] == "agent") {
+            $user = json_decode(Agent::where('user_id',$id)->with('users')->first(),true);
+        }
+        //dd($profile,$id,Agent::where('user_id',$id)->with('users')->first());
         return view('user.profile',compact('user'));
     }
 
@@ -126,6 +129,9 @@ class UserController extends Controller
         if ($profile['role'] == "professeur") {
             $user = json_decode(Professeur::where('user_id',$id)->with('users')->first(),true);
         }  
+        if ($profile['role'] == "agent") {
+            $user = json_decode(Agent::where('user_id',$id)->with('users')->first(),true);
+        }
         //dd($user);
         return view('user.updateprofile',compact('user'));
     }

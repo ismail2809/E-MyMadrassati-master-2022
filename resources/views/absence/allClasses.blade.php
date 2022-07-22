@@ -20,15 +20,16 @@
 		              <th style="text-align: center;"><b>Année scolaire </b></th>  
 		              <th style="text-align: center;"><b>Absences</b></th> 
 		              <th style="text-align: center;"><b>Notes</b></th> 
+		              <th style="text-align: center;"><b>Paiements</b></th> 
 		            </tr> 
 		          </thead> 
 		          <tbody> 
 		            @foreach($allClasses as $classe)
 		            <tr>
-		             <td style="text-align: center;">{{ $classe->classes->titre }}</th>
- 		             <td style="text-align: center;">{{ $classe->classes->niveaus->titre }}</th> 	               	          
-		             <td style="text-align: center;">{{ $classe->classes->categories->titre }}</th>  	              
-		             <td style="text-align: center;">{{ $classe->années->titre }}</th>  	 
+		             <td style="text-align: center;">{{ $classe->classes->titre }}</td>
+ 		             <td style="text-align: center;">{{ $classe->classes->niveaus->titre }}</td> 	               	          
+		             <td style="text-align: center;">{{ $classe->classes->categories->titre }}</td>  	              
+		             <td style="text-align: center;">{{ $classe->années->titre }}</td>  	 
 		             <td style="text-align: center;">
 		               	<a href="{{url('/classe/'.$classe->classes->id.'/nouvelle_absence')}}" title="Absences">
 		               		<i class="align-middle me-2" data-feather="clock"></i> 
@@ -38,7 +39,12 @@
 		               	<a href="{{url('/classe/'.$classe->classes->id.'/nouvelle_note')}}" title="Notes">
 		               		<i class="align-middle me-2" data-feather="file-text"></i> 
 	                  	</a> 
-	                </td>
+	                </td> 
+	                <td style="text-align: center;">
+		               	<a href="{{url('/classe/'.$classe->classes->id.'/nouvelle_paiement')}}" title="¨Paiements">
+		               		<i class="align-middle me-2" data-feather="dollar-sign"></i> 
+	                  	</a> 
+	                </td>  
 		            </tr>       
 		            @endforeach       
 		        </tbody>

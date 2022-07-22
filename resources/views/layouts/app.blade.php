@@ -11,6 +11,9 @@
 </head>
 <body>
     <div id="app">
+        @guest
+            
+        @else
         <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
@@ -55,6 +58,7 @@
                 </div>
             </div>
         </nav>
+        @endguest
 
 
         <main class="py-4">

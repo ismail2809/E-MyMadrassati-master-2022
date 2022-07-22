@@ -4,7 +4,7 @@
 @section('content')  
 
 <h4 class="h4 mb-3">
-<a href="{{url('/liste_paiements')}}" title="Retour">
+<a href="{{url('/paiements')}}" title="Retour">
   <i class="align-middle me-2" data-feather="arrow-left-circle"></i>  
 </a> 
      <strong>  Retour </strong>
@@ -23,50 +23,59 @@
         {{ csrf_field() }}  
          <input type="hidden" name="_method" value="PUT">
          
-        <div class="row"> 
+                <div class="row"> 
 
-                <div class="col-sm-3">
-                  <p class="text-muted">Catégorie : </p>
-                </div>
+                        <div class="col-sm-3">
+                          <p class="text-muted">Catégorie : </p>
+                        </div>
 
-                <div class="col-sm-3">
-                     <strong>{{ $response->classes->categories->titre }} </strong> 
-                </div>
-  
-                <div class="col-sm-3">
-                  <p class="text-muted">Niveau : </p>
-                </div>
+                        <div class="col-sm-3">
+                             <strong>{{ $response->classes->categories->titre }} </strong> 
+                        </div>
+          
+                        <div class="col-sm-3">
+                          <p class="text-muted">Niveau : </p>
+                        </div>
 
-                <div class="col-sm-3">
-                     <strong>{{ $response->classes->niveaus->titre }}</strong>
+                        <div class="col-sm-3">
+                             <strong>{{ $response->classes->niveaus->titre }}</strong>
+                        </div> 
+
+                            <div class="col-sm-3">
+                              <p class="text-muted">Classe : </p>
+                            </div>
+
+                            <div class="col-sm-3">
+                                 <strong> {{ $response->classes->titre }}</strong>
+                            </div> 
+
+                        <div class="col-sm-3">
+                          <p class="text-muted">Année scolaire : </p>
+                        </div>
+
+                        <div class="col-sm-3">
+                             <select class="form-select" name="annee_id" title="Année Scholaire" required>  
+                             @foreach($années as $année)
+                                    @if($paiement->annee_id == $année->id)
+                                          <option value="{{ $année->id }}" selected >{{ $année->titre }}</option>
+                                      @else
+                                          <option value="{{ $année->id }}" >{{ $année->titre }}</option>
+                                    @endif
+                               @endforeach
+                              </select>
+                        </div>  
                 </div> 
-
-                    <div class="col-sm-3">
-                      <p class="text-muted">Classe : </p>
-                    </div>
-
-                    <div class="col-sm-3">
-                         <strong> {{ $response->classes->titre }}</strong>
-                    </div> 
-
-                <div class="col-sm-3">
-                  <p class="text-muted">Année scolaire : </p>
-                </div>
-
-                <div class="col-sm-3">
-                     <strong>{{ $paiement->années->titre }}</strong>
-                </div>
-
+                
                 <div class="row">
 
-                <div class="col-sm-3">
-                  <p class="text-muted">Etudiant : </p>
-                </div>
+                    <div class="col-sm-3">
+                      <p class="text-muted">Etudiant : </p>
+                    </div>
 
-                <div class="col-sm-9">
-                     <strong>{{ $paiement->etudiants->users->prenom }} {{ $paiement->etudiants->users->nom }}</strong>
+                    <div class="col-sm-9">
+                         <strong>{{ $paiement->etudiants->users->prenom }} {{ $paiement->etudiants->users->nom }}</strong>
 
-                </div>
+                    </div>
 
                 </div> 
 
@@ -105,9 +114,6 @@
                     </div> 
 
                 </div> 
-
-
-          </div> 
          <hr>
 
 
@@ -126,8 +132,8 @@
                   </thead>
                 <tbody>
                     <tr> 
-                        <td style="text-align: center;">{{ $paiement->id}}  
-                             <input type="hidden" name="etudiant_id" value="">     
+                        <td style="text-align: center;">#{{ $paiement->id}}  
+                             <input type="hidden" name="etudiant_id" value="{{ $paiement->etudiants->id}}">      
                         </td>  
                         <td style="text-align: center;">
                           <select class="form-select mb-3" name="type_paiement_id" title="Type" > 

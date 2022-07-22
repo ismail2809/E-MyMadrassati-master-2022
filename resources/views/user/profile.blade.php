@@ -8,7 +8,7 @@
 <div class="mb-3">
     <h4 class="h4 mb-3">
       <a href="{{url('/editprofile')}}" title="Editer profile">
-        <i class="align-middle me-2" data-feather="edit"></i>  Editer profile
+        <i class="align-middle me-2" data-feather="edit"></i>  Editer votre profile
       </a> 
     </h4>
 </div>

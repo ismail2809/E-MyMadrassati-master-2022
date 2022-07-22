@@ -64,11 +64,11 @@
 	          <tbody> 
 	            @foreach($admins as $admin)
 	            <tr>
-	             <td style="text-align: center;">{{ $admin->prenom }} {{ $admin->nom }}</th> 	              
-	             <td style="text-align: center;">{{ $admin->email }}</th> 	              
-	             <td style="text-align: center;">{{ $admin->tel }}</th> 	              
-	             <td style="text-align: center;">{{ $admin->sexe }}</th> 	              	             
-	             <td style="text-align: center;">{{ $admin->ddn }}</th> 
+	             <td style="text-align: center;">{{ $admin->prenom }} {{ $admin->nom }}</td> 	              
+	             <td style="text-align: center;">{{ $admin->email }}</td> 	              
+	             <td style="text-align: center;">{{ $admin->tel }}</td> 	              
+	             <td style="text-align: center;">{{ $admin->sexe }}</td> 	              	             
+	             <td style="text-align: center;">{{ $admin->ddn }}</td> 
 	             <td style="text-align: center;">{{ $admin->created_at }}</td>        	              	             
 	            </tr>       
 	            @endforeach       

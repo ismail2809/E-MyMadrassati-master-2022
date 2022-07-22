@@ -16,12 +16,14 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+ 
 
 Auth::routes(); 
 
-//Auth::routes(['register' => true]);
+Auth::routes(['register' => false]);
 
 Route::get('/home', 'HomeController@index')->name('home');
+
 //landing page
 Route::get('/', function () {
         return view('landing_page.index');
@@ -29,8 +31,11 @@ Route::get('/', function () {
 
 Route::group(['middleware' => ['auth']], function() {
 
+//dashboard
+Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
+
 Route::resource('roles','RoleController');
-Route::resource('users','UserController');
+//Route::resource('users','UserController');
 Route::resource('products','ProductController');
 
 Route::get('/sessions/{id}', 'HomeController@putAnnee');
@@ -123,6 +128,8 @@ Route::get('/user/{id}/edit_password', 'PasswordController@edit_password');
 Route::post('/update_password/{id}', 'PasswordController@update_password');
 
 //user
+Route::get('users/create', 'UserController@create')->name('users.create');
+Route::post('users', 'UserController@store')->name('users.store');
 Route::get('/user/{id}/detail', 'UserController@show')->name('users.show');
 Route::get('/user/{id}/edit', 'UserController@edit')->name('users.edit');
 Route::patch('/user/{id}/update', 'UserController@update')->name('users.update');
@@ -161,20 +168,31 @@ Route::post('/type_paiement', 'Type_paiementController@store');
 Route::get('/paiement/new', 'PaiementController@create');
 Route::get('/paiements', 'PaiementController@index');
 Route::get('/paiement/{id}/edit','PaiementController@edit');
-Route::put('/paiement/{id}','PaiementController@update');
+Route::put('/paiement/{id}/update','PaiementController@update');
 Route::delete('/paiement/{id}','PaiementController@destroy');
 Route::post('/paiement', 'PaiementController@store');
 Route::get('/classe/{id}/nouvelle_paiement', 'PaiementController@new_paiement');  
-Route::get('/listes_classes', 'PaiementController@getAllClasses');
+Route::get('/etudiant/{id}/nouvelle_paiement', 'PaiementController@newPaiementByEtudiant');  
+Route::get('/paiements/listes_classes', 'PaiementController@getAllClasses');
 Route::get('/paiement/{id}/détail','PaiementController@show');
+Route::get('/paiement/{id}/historique','PaiementController@historiquePaiement');
 
+Route::get('/attestation_paiement/{id}', 'PaiementController@imprimerAttestationPaiement')->name('attestation_paiement');
+
+
+//renouvelement 
+Route::get('/renouvelement/{id}/new','RenouvelementController@new');
+Route::put('/renouvelement/{id}','RenouvelementController@store');
 
 /*
-//ep 
-Route::get('/monespace/notes', 'NoteController@getNotesEtudiantEp');
+//monespace 
+Route::get('/monespace/notes', 'NoteController@getNotesEtudiantEp'); 
 Route::get('/monespace/absences', 'AbsenceController@getAbsencesEtudiantEp');
 Route::get('/monespace/payments', 'PaymentController@getPaymentsEtudiantEp');
-Route::get('/monespace/emploi', 'EventController@index');
+Route::get('/monespace/emploi', 'EventController@index'); 
+Route::get('/monespace', 'UserController@profile');
+Route::post('/monespace/updateprofile', 'UserController@update_profile');
+Route::get('/monespace/editprofile', 'UserController@editprofile');
 
 
 //inscriptions

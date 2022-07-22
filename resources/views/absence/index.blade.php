@@ -35,12 +35,12 @@
 		          <tbody> 
 		            @foreach($absences as $absence)
 		            <tr>
-		             <td style="text-align: center;">{{ $absence->id }}</th> 	 	              	          
-		             <td style="text-align: center;">{{ $absence->classes->titre }}</th>     	              
-		             <td style="text-align: center;">{{ $absence->classes->niveaus->titre }}</th>
-		             <td style="text-align: center;">{{ $absence->classes->categories->titre }}</th>                	              
-		             <td style="text-align: center;">{{ $absence->etudiants->users->prenom }} {{ $absence->etudiants->users->nom }}</th> 	       
-		             <td style="text-align: center;">{{ $absence->matieres->titre }} </th> 	   
+		             <td style="text-align: center;">{{ $absence->id }}</td> 	 	              	          
+		             <td style="text-align: center;">{{ $absence->classes->titre }}</td>     	              
+		             <td style="text-align: center;">{{ $absence->classes->niveaus->titre }}</td>
+		             <td style="text-align: center;">{{ $absence->classes->categories->titre }}</td>                	              
+		             <td style="text-align: center;">{{ $absence->etudiants->users->prenom }} {{ $absence->etudiants->users->nom }}</td> 	       
+		             <td style="text-align: center;">{{ $absence->matieres->titre }} </td> 	   
 		             <td style="text-align: center;">
 		             	@if($absence->absence == "retard")
 										<span class="badge bg-warning"> {{ $absence->absence }}</span>
@@ -49,7 +49,7 @@
 										<span class="badge bg-danger"> {{ $absence->absence }}</span>											 
 								 @endif              
 								</td>                   	
-		             <td style="text-align: center;">{{ $absence->années->titre }}</th>                   	              
+		             <td style="text-align: center;">{{ $absence->années->titre }}</td>                   	              
 
 		             <td style="text-align: center;">
 		               	<a href="{{url('/absence/'.$absence->id.'/détail')}}" title="Détail">

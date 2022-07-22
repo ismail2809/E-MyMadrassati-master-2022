@@ -27,6 +27,7 @@
 		              <th style="text-align: center;"><b>Etudiant</b></th>  
 		              <th style="text-align: center;"><b>Matiere </b></th>   
 		              <th style="text-align: center;"><b>Année scolaire</b></th> 
+                  <th style="text-align: center;"><b>Date</b></th>		              
 		              <th style="text-align: center;"><b>Détail</b></th>  
 		              <th style="text-align: center;"><b>Modifier</b></th>  
 		            </tr> 
@@ -41,6 +42,8 @@
 		             <td style="text-align: center;">{{ $note->etudiants->users->prenom }} {{ $note->etudiants->users->nom }}</td> 	        
 		             <td style="text-align: center;">{{ $note->matieres->titre }} </td>                   	 
 		             <td style="text-align: center;">{{ $note->années->titre }}</td>   
+                 <td>{{ $note->created_at->format('H:m | d-M-Y') }}</td> 
+
 		             <td style="text-align: center;">
 		               	<a href="{{url('/note/'.$note->id.'/détail')}}" title="Détail">
 		               		<i class="align-middle me-2" data-feather="eye"></i> 

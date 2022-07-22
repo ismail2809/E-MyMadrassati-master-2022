@@ -30,9 +30,9 @@
 		          <tbody> 
 		            @foreach($niveaux as $niveau)
 		            <tr>
-		             <td style="text-align: center;">{{ $niveau->id }}</th> 	              
-		             <td style="text-align: center;">{{ $niveau->titre }}</th> 	              
-		             <td style="text-align: center;">{{ $niveau->description }}</th> 	              
+		             <td style="text-align: center;">{{ $niveau->id }}</td> 	              
+		             <td style="text-align: center;">{{ $niveau->titre }}</td> 	              
+		             <td style="text-align: center;">{{ $niveau->description }}</td> 	              
 		             <td style="text-align: center;">
 		               	<a href="{{url('/niveau/'.$niveau->id.'/edit')}}" title="Modifier">
 		               		<i class="align-middle me-2" data-feather="edit"></i> 

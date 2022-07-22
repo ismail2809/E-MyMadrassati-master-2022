@@ -32,10 +32,10 @@
 		          <tbody> 
 		            @foreach($contacts as $contact)
 		            <tr>
-		             <td style="text-align: center;">{{ $contact->id }}</th> 	              
-		             <td style="text-align: center;">{{ $contact->name }}</th> 	              
-		             <td style="text-align: center;">{{ $contact->objet }}</th>   	              
-		             <td style="text-align: center;">{{ $contact->telephone }}</th>  	              
+		             <td style="text-align: center;">{{ $contact->id }}</td> 	              
+		             <td style="text-align: center;">{{ $contact->name }}</td> 	              
+		             <td style="text-align: center;">{{ $contact->objet }}</td>   	              
+		             <td style="text-align: center;">{{ $contact->telephone }}</td>  	              
 		             <td style="text-align: center;">
 		               	<a href="{{ url('/contact/'.$contact->id.'/detail') }}" title="Détail">
 		               		<i class="align-middle me-2" data-feather="eye"></i> 
@@ -50,8 +50,8 @@
 	                  	 <form action="{{url('/contact/'.$contact->id)}}" method="post">
 		                      {{csrf_field()}}
 		                      {{method_field('DELETE')}}
-		                      <button type="submit"  class="btn btn-danger btn-round" title="Suprimer">
-		                 	     <i class="align-middle me-2" data-feather="trash-2"></i>
+		                      <button type="submit"  class="btn btn-danger btn-sm" title="Suprimer">
+                            <i class="align-middle" data-feather="trash-2"></i> 
 		                      </button>
 	                     </form>  
 		             </td>                

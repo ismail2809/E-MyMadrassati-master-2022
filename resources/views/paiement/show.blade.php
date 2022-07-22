@@ -4,7 +4,7 @@
 @section('content')  
 
 <h4 class="h4 mb-3">
-<a href="{{url('/liste_paiements')}}" title="Retour">
+<a href="{{url('/paiements')}}" title="Retour">
   <i class="align-middle me-2" data-feather="arrow-left-circle"></i>  
 </a> 
      <strong>  Retour </strong>
@@ -26,14 +26,6 @@
                 <div class="col-sm-3">
                      <strong> {{ $response->classes->categories->titre }} </strong> 
                 </div>
-
-                <div class="col-sm-3">
-                  <p class="text-muted">Année scolaire : </p>
-                </div>
-
-                <div class="col-sm-3">
-                     <strong> {{ $paiement->années->titre }}</strong>
-                </div>
   
                 <div class="col-sm-3">
                   <p class="text-muted">Niveau : </p>
@@ -44,24 +36,31 @@
                 </div> 
 
                 <div class="col-sm-3">
-                  <p class="text-muted">Etudiant : </p>
-                </div>
-
-                <div class="col-sm-3">
-                     <strong>{{ $paiement->etudiants->users->prenom }} {{ $paiement->etudiants->users->nom }}</strong>
-
-         </div>
-
-         <div class="row">
-
-                <div class="col-sm-3">
                   <p class="text-muted">Classe : </p>
                 </div>
 
                 <div class="col-sm-3">
                      <strong> {{ $response->classes->titre }}</strong>
-                </div> 
-                </div> 
+                </div>
+
+                <div class="col-sm-3">
+                  <p class="text-muted">Année scolaire : </p>
+                </div>
+
+                <div class="col-sm-3">
+                     <strong> {{ $paiement->années->titre }}</strong>
+                </div>
+                
+          </div> 
+
+          <div class="row">  
+                <div class="col-sm-3">
+                  <p class="text-muted">Etudiant : </p>
+                </div>
+
+                <div class="col-sm-3">
+                     <strong>{{ $paiement->etudiants->users->prenom }} {{ $paiement->etudiants->users->nom }}</strong>
+                </div>
           </div> 
          <hr>
           <div class="row">
@@ -74,18 +73,20 @@
                       <th style="text-align: center;">Mode </th> 
                       <th style="text-align: center;">Mois</th> 
                       <th style="text-align: center;">Description</th>  
+                      <th style="text-align: center;">Date</th>  
                       <th style="text-align: center;">Modifier</th>
                       <th style="text-align: center;">Supprimer</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr>
-                     <td style="text-align: center;">{{ $paiement->id }}</th>      
-                     <td style="text-align: center;">{{ $paiement->type_paiements->titre  }}</th>                 
-                     <td style="text-align: center;">{{ $paiement->versement }}</th>                 
-                     <td style="text-align: center;">{{ $paiement->mode }}</th>                 
-                     <td style="text-align: center;">{{ $paiement->mois }}</th>                       
-                     <td style="text-align: center;">{{ $paiement->description }}</th>  
+                     <td style="text-align: center;">#{{ $paiement->id }}</td>      
+                     <td style="text-align: center;">{{ $paiement->type_paiements->titre  }}</td>                 
+                     <td style="text-align: center;">{{ $paiement->versement }}</td>                 
+                     <td style="text-align: center;">{{ $paiement->mode }}</td>                 
+                     <td style="text-align: center;">{{ $paiement->mois }}</td>                       
+                     <td style="text-align: center;">{{ $paiement->description }}</td> 
+                     <td style="text-align: center;">{{ $paiement->created_at->format('H:m | d-M-Y') }}</td>  
                       <td style="text-align: center;">
                         <a href="{{url('/paiement/'.$paiement->id.'/edit')}}" title="Modifier">
                           <i class="align-middle me-2" data-feather="edit"></i> 
@@ -95,8 +96,8 @@
                          <form action="{{url('/paiement/'.$paiement->id)}}" method="post">
                             {{csrf_field()}}
                             {{method_field('DELETE')}}
-                            <button type="submit"  class="btn btn-danger" title="Suprimer">
-                            <i class="align-middle" data-feather="delete"></i>  
+                            <button type="submit"  class="btn btn-danger btn-sm" title="Suprimer">
+                            <i class="align-middle" data-feather="trash-2"></i>   
                          </form>  
                      </td> 
                     </tr>

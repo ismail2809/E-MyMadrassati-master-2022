@@ -29,8 +29,8 @@
 		          <tbody> 
 		            @foreach($années as $année)
 		            <tr>
-		             <td style="text-align: center;">{{ $année->titre }}</th> 	              
-		             <td style="text-align: center;">{{ $année->description }}</th> 	              
+		             <td style="text-align: center;">{{ $année->titre }}</td> 	              
+		             <td style="text-align: center;">{{ $année->description }}</td> 	              
 		             <td style="text-align: center;">
 		               	<a href="{{url('/année/'.$année->id.'/edit')}}" title="Modifier">
 		               		<i class="align-middle me-2" data-feather="edit"></i> 
@@ -40,8 +40,8 @@
 	                  	 <form action="{{url('/année/'.$année->id)}}" method="post">
 		                      {{csrf_field()}}
 		                      {{method_field('DELETE')}}
-		                      <button type="submit"  class="btn btn-danger btn-round" title="Suprimer">
-		                 	     <i class="align-middle me-2" data-feather="trash-2"></i>
+		                      <button type="submit"  class="btn btn-danger btn-sm" title="Suprimer">
+                            <i class="align-middle" data-feather="trash-2"></i> 
 		                      </button>
 	                     </form>  
 		             </td>                

@@ -30,9 +30,9 @@
 		          <tbody> 
 		            @foreach($matieres as $matiere)
 		            <tr>
-		             <td style="text-align: center;">{{ $matiere->id }}</th> 	              
-		             <td style="text-align: center;">{{ $matiere->titre }}</th> 	              
-		             <td style="text-align: center;">{{ $matiere->description }}</th> 	              
+		             <td style="text-align: center;">{{ $matiere->id }}</td> 	              
+		             <td style="text-align: center;">{{ $matiere->titre }}</td> 	              
+		             <td style="text-align: center;">{{ $matiere->description }}</td> 	              
 		             <td style="text-align: center;">
 		               	<a href="{{url('/matiere/'.$matiere->id.'/edit')}}" title="Modifier">
 		               		<i class="align-middle me-2" data-feather="edit"></i> 
@@ -42,8 +42,8 @@
 	                  	 <form action="{{url('/matiere/'.$matiere->id)}}" method="post">
 		                      {{csrf_field()}}
 		                      {{method_field('DELETE')}}
-		                      <button type="submit"  class="btn btn-danger btn-round" title="Suprimer">
-		                 	     <i class="align-middle me-2" data-feather="trash-2"></i>
+		                      <button type="submit"  class="btn btn-danger btn-sm" title="Suprimer">
+                            <i class="align-middle" data-feather="trash-2"></i> 
 		                      </button>
 	                     </form>  
 		             </td>                
